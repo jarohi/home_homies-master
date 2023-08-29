@@ -14,7 +14,7 @@ import Container from "@/app/components/Container";
 import { categories } from "@/app/components/navbar/Categories";
 import ListingHead from "@/app/components/listings/ListingHead";
 import ListingInfo from "@/app/components/listings/ListingInfo";
-import ListingReservation from "@/app/components/listings/ListingReservation";
+import AISummary from "@/app/components/listings/AISummary/AISummary";
 import { post } from "@prisma/client";
 
 const initialDateRange = {
@@ -127,7 +127,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
             // locationValue={listing.locationValue}
             id={listing.id}
             currentUser={currentUser}
-            location_type={listing.location_type}
+        location_type={listing.location_area}
           />
           <div 
             className="
@@ -155,14 +155,16 @@ const ListingClient: React.FC<ListingClientProps> = ({
                 md:col-span-3
               "
             >
-              <ListingReservation
-                price={listing.rent}
-                totalPrice={totalPrice}
-                onChangeDate={(value) => setDateRange(value)}
-                dateRange={dateRange}
-                onSubmit={onCreateReservation}
-                disabled={isLoading}
-                disabledDates={disabledDates}
+              <AISummary
+                rent={listing.rent}
+                deposit={listing.deposit}
+                brokerage={listing.brokerage}
+                numberOfRooms={listing.bhk}
+                preferredTenants={listing.available_for}
+                possession={listing.availability}
+                propertyType={listing.property_type}
+                contactDetails={listing.contact_details   
+                }
               />
             </div>
           </div>
