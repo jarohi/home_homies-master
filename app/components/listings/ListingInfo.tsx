@@ -15,25 +15,19 @@ const Map = dynamic(() => import('../Map'), {
 
 interface ListingInfoProps {
   user: SafeUser,
-  description: string;
   rent: number;
   deposit: number;
   brokerage: String;
-  category: {
-    icon: IconType,
-    label: string;
-    description: string;
-  } | undefined
+  original_post: String;
   // locationValue: string;
 }
 
 const ListingInfo: React.FC<ListingInfoProps> = ({
   user,
-  description,
   rent,
   deposit,
   brokerage,
-  category,
+  original_post,
   // locationValue,
 }) => {
   const { getByValue } = useCountries();
@@ -53,7 +47,7 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
             gap-2
           "
         >
-          <div>Hosted by {user?.name}</div>
+          <div>Posted by {user?.name}</div>
           <Avatar src={user?.image} />
         </div>
         <div className="
@@ -77,18 +71,7 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
         </div>
       </div>
       <hr />
-      {category && (
-        <ListingCategory
-          icon={category.icon} 
-          label={category?.label}
-          description={category?.description} 
-        />
-      )}
-      <hr />
-      <div className="
-      text-lg font-light text-neutral-500">
-        {description}
-      </div>
+       {original_post}
       <hr />
       {/* <Map center={coordinates} /> */}
     </div>
