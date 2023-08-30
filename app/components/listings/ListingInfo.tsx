@@ -7,6 +7,7 @@ import { SafeUser } from "@/app/types";
 
 import Avatar from "../Avatar";
 import ListingCategory from "./ListingCategory";
+import VisitOriginalPostButton from "./OriginalPost/OriginalPost";
 
 const Map = dynamic(() => import('../Map'), { 
   ssr: false 
@@ -14,10 +15,12 @@ const Map = dynamic(() => import('../Map'), {
 
 interface ListingInfoProps {
   user: SafeUser,
-  rent: number;
-  deposit: number;
-  brokerage: String;
-  original_post: String;
+  rent: number,
+  deposit: number,
+  brokerage: String,
+  original_post: String,
+  originalPostUrl: string
+
   // locationValue: string;
 }
 
@@ -27,6 +30,7 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
   deposit,
   brokerage,
   original_post,
+  originalPostUrl
   // locationValue,
 }) => {
   const { getByValue } = useCountries();
@@ -35,7 +39,10 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
 
   return ( 
     <div className="col-span-4 flex flex-col gap-8">
-      <div className="flex flex-col gap-2">
+      <div className="app">
+      <VisitOriginalPostButton url={originalPostUrl} />
+      </div>
+      {/* <div className="flex flex-col gap-2">
         <div 
           className="
             text-xl 
@@ -68,7 +75,7 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
            Brokerage {brokerage}
           </div>
         </div>
-      </div>
+      </div> */}
       <hr />
        {original_post}
       <hr />

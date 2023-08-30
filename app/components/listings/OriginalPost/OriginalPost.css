@@ -1,0 +1,16 @@
+.facebook-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #1877f2; /* Facebook blue color */
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .facebook-button:hover {
+    background-color: #1464aa; /* Darker shade on hover */
+  }
+  

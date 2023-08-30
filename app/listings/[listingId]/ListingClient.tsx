@@ -111,6 +111,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
               rent={listing.rent}
               deposit={listing.deposit}
               brokerage={listing.brokerage}
+              originalPostUrl={listing.post_url}
             />
             <div 
               className="
