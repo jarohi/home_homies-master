@@ -45,11 +45,11 @@ CREATE TABLE "post" (
     "available_for" TEXT NOT NULL,
     "furnishing_status" TEXT NOT NULL,
     "property_type" TEXT NOT NULL,
-    "location_type" TEXT NOT NULL,
+    "location_area" TEXT NOT NULL,
     "contact_details" TEXT NOT NULL,
     "post_url" TEXT NOT NULL,
     "images_url" TEXT NOT NULL,
-    "original_url" TEXT NOT NULL,
+    "original_post" TEXT NOT NULL,
 
     CONSTRAINT "post_pkey" PRIMARY KEY ("_id")
 );

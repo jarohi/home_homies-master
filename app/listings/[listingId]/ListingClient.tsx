@@ -12,6 +12,7 @@ import Container from "@/app/components/Container";
 import { categories } from "@/app/components/navbar/Categories";
 import ListingHead from "@/app/components/listings/ListingHead";
 import ListingInfo from "@/app/components/listings/ListingInfo";
+import AISummary from "@/app/components/listings/AISummary/AISummary";
 import { post } from "@prisma/client";
 
 const initialDateRange = {
@@ -119,6 +120,17 @@ const ListingClient: React.FC<ListingClientProps> = ({
                 md:col-span-3
               "
             >
+              <AISummary
+                rent={listing.rent}
+                deposit={listing.deposit}
+                brokerage={listing.brokerage}
+                numberOfRooms={listing.bhk}
+                preferredTenants={listing.available_for}
+                possession={listing.availability}
+                propertyType={listing.property_type}
+                contactDetails={listing.contact_details   
+                }
+              />
             </div>
           </div>
         </div>
