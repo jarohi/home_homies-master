@@ -1,8 +1,6 @@
 'use client';
 
-import axios from "axios";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { toast } from "react-hot-toast";
 import { Range } from "react-date-range";
 import { useRouter } from "next/navigation";
 import { differenceInDays, eachDayOfInterval } from 'date-fns';
@@ -63,38 +61,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
   const [totalPrice, setTotalPrice] = useState(listing.rent);
   const [dateRange, setDateRange] = useState<Range>(initialDateRange);
 
-  const onCreateReservation = useCallback(() => {
-      if (!currentUser) {
-        return loginModal.onOpen();
-      }
-      setIsLoading(true);
-
-      axios.post('/api/reservations', {
-        totalPrice,
-        startDate: dateRange.startDate,
-        endDate: dateRange.endDate,
-        listingId: listing?.id
-      })
-      .then(() => {
-        toast.success('Listing reserved!');
-        setDateRange(initialDateRange);
-        router.push('/trips');
-      })
-      .catch(() => {
-        toast.error('Something went wrong.');
-      })
-      .finally(() => {
-        setIsLoading(false);
-      })
-  },
-  [
-    totalPrice, 
-    dateRange, 
-    listing?.id,
-    router,
-    currentUser,
-    loginModal
-  ]);
+ 
 
   useEffect(() => {
     if (dateRange.startDate && dateRange.endDate) {
@@ -127,7 +94,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
             // locationValue={listing.locationValue}
             id={listing.id}
             currentUser={currentUser}
-        location_type={listing.location_area}
+            location_type={listing.location_area}
           />
           <div 
             className="
@@ -140,12 +107,11 @@ const ListingClient: React.FC<ListingClientProps> = ({
           >
             <ListingInfo
               user={listing.user}
-              category={category}
-              description={listing.furnishing_status}
+              original_post={listing.original_post}
               rent={listing.rent}
               deposit={listing.deposit}
               brokerage={listing.brokerage}
-              // locationValue={listing.locationValue}
+              originalPostUrl={listing.post_url}
             />
             <div 
               className="
