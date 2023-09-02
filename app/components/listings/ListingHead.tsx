@@ -7,6 +7,13 @@ import Heading from "../Heading";
 import HeartButton from "../HeartButton";
 import ImageCollage from "../ImageCollage/ImageCollage";
 
+function capitalizeWords(str: string) {
+  return str
+    .split(' ')
+    .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
 interface ListingHeadProps {
   bhk: number;
   rent: number;
@@ -28,6 +35,8 @@ const ListingHead: React.FC<ListingHeadProps> = ({
 
   const location_type_val = location_type? `in ${location_type}` : ""
 
+  const capitalizedLocation = capitalizeWords(location_type_val);
+
   const imageUrls = [
     'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmVhdXRpZnVsJTIwaG91c2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80',
     'https://images.unsplash.com/photo-1501183638710-841dd1904471?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG9tZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60',
@@ -40,7 +49,7 @@ const ListingHead: React.FC<ListingHeadProps> = ({
   return ( 
     <>
       <Heading
-        title={`Occupancy in ${bhk?.toString()} bhk ${location_type_val}`}
+        title={`Occupancy in ${bhk?.toString()} bhk ${capitalizedLocation}`}
       />
       <div className="
           w-full
