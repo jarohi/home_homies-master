@@ -16,9 +16,9 @@ const Map = dynamic(() => import('../Map'), {
 
 interface ListingInfoProps {
   user: SafeUser,
-  rent: number,
-  deposit: number,
-  brokerage: String,
+  rent: number|null,
+  deposit: number|null,
+  brokerage: String|null,
   original_post: String,
   originalPostUrl: string
 

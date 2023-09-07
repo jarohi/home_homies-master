@@ -8,14 +8,14 @@ import Calendar from "../../inputs/Calendar";
 import "./AISummary.css"
 
 interface AISummaryProps {
-  rent: number;
-  deposit: number;
-  brokerage: String;
-  numberOfRooms: number;
-  preferredTenants: String;
-  possession: Date;
-  propertyType: String;
-  contactDetails: String;
+  rent: number|null;
+  deposit: number|null;
+  brokerage: String|null;
+  numberOfRooms: number|null;
+  preferredTenants: String|null;
+  possession: Date|null;
+  propertyType: String|null;
+  contactDetails: String|null;
 }
 
 const AISummary: React.FC<
