@@ -19,7 +19,7 @@ interface ListingInfoProps {
   rent: number|null,
   deposit: number|null,
   brokerage: String|null,
-  original_post: String,
+  original_listing: String,
   originalPostUrl: string
 
   // locationValue: string;
@@ -30,7 +30,7 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
   rent,
   deposit,
   brokerage,
-  original_post,
+  original_listing,
   originalPostUrl
   // locationValue,
 }) => {
@@ -78,7 +78,7 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
         </div>
       </div> */}
       <hr />
-       {original_post}
+       {original_listing}
       <hr />
       {/* <Map center={coordinates} /> */}
     </div>

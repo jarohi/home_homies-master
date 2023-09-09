@@ -13,7 +13,7 @@ import { categories } from "@/app/components/navbar/Categories";
 import ListingHead from "@/app/components/listings/ListingHead";
 import ListingInfo from "@/app/components/listings/ListingInfo";
 import AISummary from "@/app/components/listings/AISummary/AISummary";
-import { post } from "@prisma/client";
+import { listing } from "@prisma/client";
 
 const initialDateRange = {
   startDate: new Date(),
@@ -23,7 +23,7 @@ const initialDateRange = {
 
 interface ListingClientProps {
   reservations?: SafeReservation[];
-  listing: post & {
+  listing: listing & {
     user: SafeUser;
   };
   currentUser?: SafeUser | null;
@@ -107,11 +107,11 @@ const ListingClient: React.FC<ListingClientProps> = ({
           >
             <ListingInfo
               user={listing.user}
-              original_post={listing.original_post}
+              original_listing={listing.original_listing}
               rent={listing.rent}
               deposit={listing.deposit}
               brokerage={listing.brokerage}
-              originalPostUrl={listing.post_url}
+              originalPostUrl={listing.listing_url}
             />
             <div 
               className="

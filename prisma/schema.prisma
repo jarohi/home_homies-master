@@ -17,21 +17,21 @@ model User {
   emailVerified  DateTime?
   image          String?
   hashedPassword String?
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+  createdAt      DateTime?  @default(now())
+  updatedAt      DateTime?  @updatedAt
   favoriteIds    String[]
 
   accounts     Account[]
-  posts        post[]
+  listings        listing[]
   reservations Reservation[]
 }
 
 model Account {
   id                String  @id @default(uuid()) @map("_id")
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
+  userId            String?
+  type              String?
+  provider          String?
+  providerAccountId String?
   refresh_token     String?
   access_token      String?
   expires_at        Int?
@@ -40,7 +40,7 @@ model Account {
   id_token          String?
   session_state     String?
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -62,38 +62,38 @@ model Account {
 //   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 // }
 
-model post {
+model listing {
   id                String   @id @default(uuid()) @map("_id")
-  userId            String
-  rent              Int
-  deposit           Int
-  brokerage         String
-  createdAt         DateTime @default(now())
-  availability      DateTime
-  bhk               Int
-  occupancy         String
-  available_for     String
-  furnishing_status String
-  property_type     String
-  location_area     String
-  contact_details   String
-  post_url          String
-  images_url        String
-  original_post     String
+  userId            String?
+  rent              Int?
+  deposit           Int?
+  brokerage         String?
+  createdAt         DateTime? @default(now())
+  availability      DateTime?
+  bhk               Int?
+  occupancy         String?
+  available_for     String?
+  furnishing_status String?
+  property_type     String?
+  location_area     String?
+  contact_details   String?
+  listing_url          String?
+  images_url        String?
+  original_listing     String?
 
-  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        User?          @relation(fields: [userId], references: [id], onDelete: Cascade)
   Reservation Reservation[]
 }
 
 model Reservation {
   id         String   @id @default(uuid()) @map("_id")
-  userId     String
-  postId  String
-  startDate  DateTime
-  endDate    DateTime
-  totalPrice Int
-  createdAt  DateTime @default(now())
+  userId     String?
+  listingId  String?
+  startDate  DateTime?
+  endDate    DateTime?
+  totalPrice Int?
+  createdAt  DateTime? @default(now())
 
-  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  post post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user    User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  listing listing? @relation(fields: [listingId], references: [id], onDelete: Cascade)
 }

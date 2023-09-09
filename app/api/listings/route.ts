@@ -14,6 +14,7 @@ export async function POST(
 
   const body = await request.json();
   const { 
+    userId,
     id,
     rent,
     deposit,
@@ -27,9 +28,9 @@ export async function POST(
     property_type,
     location_area,
     contact_details,
-    post_url,
+    listing_url,
     images_url,
-    original_post
+    original_listing
    } = body;
 
   Object.keys(body).forEach((value: any) => {
@@ -38,8 +39,9 @@ export async function POST(
     }
   });
 
-  const listing = await prisma.post.create({
+  const listing = await prisma.listing.create({
     data: {
+      userId,      
       id,
       rent,
       deposit,
@@ -53,9 +55,9 @@ export async function POST(
       property_type,
       location_area,
       contact_details,
-      post_url,
+      listing_url,
       images_url,
-      original_post
+      original_listing
     }
   });
 
