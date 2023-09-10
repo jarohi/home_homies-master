@@ -8,8 +8,8 @@ export interface IListingsParams {
   createdAt?: Date | null;
   availability?: Date | null;
   bhk?: string[] | null;
-  occupancy?: string;
-  available_for?: string;
+  occupancy?: string[] | null;
+  availableFor?: string[] | null;
   furnishing_status?: string;
   property_type?: string;
   location_area?: string;
@@ -23,7 +23,9 @@ export default async function getListings(
       userId,
       rent, 
       brokerge,
-      bhk
+      bhk,
+      occupancy,
+      availableFor
     } = params;
 
     let query: any = {};
@@ -59,6 +61,18 @@ export default async function getListings(
       console.log('query bhk', query.bhk);
     }
 
+    if(occupancy && occupancy.length > 0) {
+      query.occupancy = {
+        in: occupancy 
+      }
+    }
+
+    if(availableFor && availableFor.length > 0 ) {
+      query.available_for = {
+        in: availableFor
+      }
+    }
+    
     const listings = await prisma.post.findMany({
       where: query,
       // orderBy: {

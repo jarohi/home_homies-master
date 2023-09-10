@@ -13,6 +13,7 @@ interface HorizontalMultiSelectProps<T> {
   setValues: React.Dispatch<React.SetStateAction<T[]>>;
   label: string;
   options: Option[];
+  isMulti: boolean
 }
 
 function HorizontalMultiSelect<T>({
@@ -20,9 +21,16 @@ function HorizontalMultiSelect<T>({
   setValues,
   label,
   options,
+  isMulti
 }: HorizontalMultiSelectProps<T>) {
   const handleSelectChange = (selected: any) => {
-    const selectedOptions = selected as Array<{ value: string; label: string }>;
+    let selectedOptions: Array<{ value: string; label: string }> = [];
+    if(Array.isArray(selected)){
+    selectedOptions = selected as Array<{ value: string; label: string }>;
+    }
+    else if (typeof selected === 'object' && selected !== null){
+    selectedOptions = [selected] as Array<{ value: string; label: string }>;  
+    }
     const selectedValues = selectedOptions.map((option : any) => option.value);
     setValues(selectedValues);
   };
@@ -31,7 +39,7 @@ function HorizontalMultiSelect<T>({
     <div style={{ width: '300px' }}>
       <h1>{label}</h1>
       <Select
-        isMulti
+        isMulti={isMulti}
         options={options}
         value={options.filter((option : any) => values.includes(option.value))}
         onChange={handleSelectChange}

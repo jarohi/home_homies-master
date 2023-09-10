@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import HorizontalMultiSelect from './HorizontalMultiSelect';
 
+const isMulti = true;
 
 interface FilterBHKProps {
   bhk: string[];
@@ -24,6 +25,7 @@ const FilterBHK: React.FC<FilterBHKProps> = ({
 
   return (
     <HorizontalMultiSelect
+      isMulti={isMulti}
       values={bhk}
       setValues={setbhk}
       label="BHK"

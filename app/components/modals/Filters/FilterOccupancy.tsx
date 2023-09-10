@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import HorizontalMultiSelect from './HorizontalMultiSelect';
 
+const isMulti = true;
 
 interface FilterOccupancyProps {
   occupancy: string[];
@@ -8,13 +9,12 @@ interface FilterOccupancyProps {
 }
 // Define the Occupancy options
 const OccupancyOptions = [
-  { value: '1', label: 'Single' },
-  { value: '2', label: 'Double' },
-  { value: '3', label: 'Triple' },
-  { value: '4+', label: 'Others' },
+  { value: 'single', label: 'Single' },
+  { value: 'double', label: 'Double' },
+  { value: 'triple', label: 'Triple' },
+  { value: 'others', label: 'Others' },
 
 ];
-
 
 // FilterOccupancy component
 const FilterOccupancy: React.FC<FilterOccupancyProps> = ({
@@ -24,6 +24,7 @@ const FilterOccupancy: React.FC<FilterOccupancyProps> = ({
 
   return (
     <HorizontalMultiSelect
+      isMulti={isMulti}
       values={occupancy}
       setValues={setOccupancy}
       label="Occupancy"

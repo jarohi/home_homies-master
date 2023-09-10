@@ -15,6 +15,8 @@ import Heading from '../Heading';
 import Slider from 'rc-slider/lib/Slider';
 import FilterBHKs from './Filters/FilterBHKs';
 import FilterOccupancy from './Filters/FilterOccupancy';
+import FilterAvailableFor from './Filters/FilterAvailableFor';
+import FilterFurnishingStatus from './Filters/FilterFurnishingStatus';
 
 
 const SearchModal = () => {
@@ -23,12 +25,13 @@ const SearchModal = () => {
   const params = useSearchParams();
 
 
-  const [roomCount, setRoomCount] = useState(1);
   const [rent, setRent] = useState([0, 10000]);
   const [brokerge, setbrokerge] = useState(null);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [bhk, setbhk] = useState<string[]>([]);
   const [occupancy,setOccupancy] = useState<string[]>([]);
+  const [availableFor, setAvailableFor] = useState<string[]>([]);
+  const [furnishingStatus, setFurnishingStatus] = useState<string[]>([]);
 
 
   const handleDateChange = (date: Date | null) => {
@@ -41,11 +44,20 @@ const SearchModal = () => {
     console.log('bhk', bhk);
   }
 
+  const handleFurnishingStatusData = (data: any) => {
+    setFurnishingStatus(data);
+    console.log('FurnishingStatus', furnishingStatus);
+  }
+
+  const handleAvailableForData = (data: any) => {
+    setAvailableFor(data);
+    console.log('AvailableFor', availableFor);
+  }
+
   const handleOccupancyData = (data: any) => {
     setOccupancy(data);
     console.log('occupancy', occupancy);
   }
-
 
  // Handle changes when a brokerge option is selected
   const handlebrokergeChange = (event: any) => {
@@ -65,11 +77,12 @@ const SearchModal = () => {
 
     const updatedQuery: any = {
       ...currentQuery,
-      roomCount,
       rent,
       brokerge,
       bhk,
-      occupancy
+      occupancy,
+      availableFor,
+      furnishingStatus
     };
 
     const url = qs.stringifyUrl({
@@ -83,11 +96,12 @@ const SearchModal = () => {
   [
     searchModal, 
     location, 
-    router, 
-    roomCount,
+    router,
     rent,
     bhk,
     occupancy,
+    availableFor,
+    furnishingStatus,
     params
   ]);
 
@@ -123,7 +137,7 @@ const SearchModal = () => {
       </div>
     <hr />
       <div className="brokerge-title">
-        <label htmlFor="brokergeField">brokerge</label>
+        <label htmlFor="brokergeField">Brokerage</label>
         </div>
         <div className="brokerge-options">
         <label className="brokerge-option-label" htmlFor="brokergeOption1">
@@ -172,19 +186,15 @@ const SearchModal = () => {
     />
     <hr />
       {/* Filter by Available For */}
-      <input
-        type="text"
-        placeholder="Available For"
-        // value={filters.available_for}
-        // onChange={(e) => handleFilterChange('available_for', e.target.value)}
+      <FilterAvailableFor
+      availableFor={availableFor}
+      setAvailableFor={handleAvailableForData}
       />
     <hr />
       {/* Filter by Furnishing Status */}
-      <input
-        type="text"
-        placeholder="Furnishing Status"
-        // value={filters.furnishing_status}
-        // onChange={(e) => handleFilterChange('furnishing_status', e.target.value)}
+      <FilterFurnishingStatus
+      furnishingStatus={furnishingStatus}
+      setFurnishingStatus={handleFurnishingStatusData}
       />
     <hr />
       </div>
