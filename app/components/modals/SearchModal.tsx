@@ -1,61 +1,70 @@
 'use client';
 
 import qs from 'query-string';
-import dynamic from 'next/dynamic'
-import { useCallback, useMemo, useState } from "react";
-import { Range } from 'react-date-range';
-import { formatISO } from 'date-fns';
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from 'next/navigation';
+import './SearchModal.css';
+import 'rc-slider/assets/index.css';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 import useSearchModal from "@/app/hooks/useSearchModal";
 
 import Modal from "./Modal";
-import Calendar from "../inputs/Calendar";
-import Counter from "../inputs/Counter";
-import CountrySelect, { 
-  CountrySelectValue
-} from "../inputs/CountrySelect";
 import Heading from '../Heading';
+import Slider from 'rc-slider/lib/Slider';
+import FilterBHKs from './Filters/FilterBHKs';
+import FilterOccupancy from './Filters/FilterOccupancy';
+import FilterAvailableFor from './Filters/FilterAvailableFor';
+import FilterFurnishingStatus from './Filters/FilterFurnishingStatus';
 
-enum STEPS {
-  LOCATION = 0,
-  DATE = 1,
-  INFO = 2,
-}
 
 const SearchModal = () => {
   const router = useRouter();
   const searchModal = useSearchModal();
   const params = useSearchParams();
 
-  const [step, setStep] = useState(STEPS.LOCATION);
 
-  const [location, setLocation] = useState<CountrySelectValue>();
-  const [guestCount, setGuestCount] = useState(1);
-  const [roomCount, setRoomCount] = useState(1);
-  const [bathroomCount, setBathroomCount] = useState(1);
-  const [dateRange, setDateRange] = useState<Range>({
-    startDate: new Date(),
-    endDate: new Date(),
-    key: 'selection'
-  });
+  const [rent, setRent] = useState([0, 10000]);
+  const [brokerge, setbrokerge] = useState(null);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [bhk, setbhk] = useState<string[]>([]);
+  const [occupancy,setOccupancy] = useState<string[]>([]);
+  const [availableFor, setAvailableFor] = useState<string[]>([]);
+  const [furnishingStatus, setFurnishingStatus] = useState<string[]>([]);
 
-  const Map = useMemo(() => dynamic(() => import('../Map'), { 
-    ssr: false 
-  }), [location]);
 
-  const onBack = useCallback(() => {
-    setStep((value) => value - 1);
-  }, []);
+  const handleDateChange = (date: Date | null) => {
+    setSelectedDate(date);
+  };
 
-  const onNext = useCallback(() => {
-    setStep((value) => value + 1);
-  }, []);
+  const handleSeletedBHKsData = (data: any) => {
+    console.log('handleDataChange in SearchModel', data)
+    setbhk(data);
+    console.log('bhk', bhk);
+  }
+
+  const handleFurnishingStatusData = (data: any) => {
+    setFurnishingStatus(data);
+    console.log('FurnishingStatus', furnishingStatus);
+  }
+
+  const handleAvailableForData = (data: any) => {
+    setAvailableFor(data);
+    console.log('AvailableFor', availableFor);
+  }
+
+  const handleOccupancyData = (data: any) => {
+    setOccupancy(data);
+    console.log('occupancy', occupancy);
+  }
+
+ // Handle changes when a brokerge option is selected
+  const handlebrokergeChange = (event: any) => {
+    setbrokerge(event.target.value);
+  };
 
   const onSubmit = useCallback(async () => {
-    if (step !== STEPS.INFO) {
-      return onNext();
-    }
 
     let currentQuery = {};
 
@@ -63,123 +72,133 @@ const SearchModal = () => {
       currentQuery = qs.parse(params.toString())
     }
 
+    console.log('in SearchModel', bhk);
+    console.log('in SearchModel occupancy', occupancy);
+
     const updatedQuery: any = {
       ...currentQuery,
-      locationValue: location?.value,
-      guestCount,
-      roomCount,
-      bathroomCount
+      rent,
+      brokerge,
+      bhk,
+      occupancy,
+      availableFor,
+      furnishingStatus
     };
-
-    if (dateRange.startDate) {
-      updatedQuery.startDate = formatISO(dateRange.startDate);
-    }
-
-    if (dateRange.endDate) {
-      updatedQuery.endDate = formatISO(dateRange.endDate);
-    }
 
     const url = qs.stringifyUrl({
       url: '/',
       query: updatedQuery,
     }, { skipNull: true });
 
-    setStep(STEPS.LOCATION);
     searchModal.onClose();
     router.push(url);
   }, 
   [
-    step, 
     searchModal, 
     location, 
-    router, 
-    guestCount, 
-    roomCount,
-    dateRange,
-    onNext,
-    bathroomCount,
+    router,
+    rent,
+    bhk,
+    occupancy,
+    availableFor,
+    furnishingStatus,
     params
   ]);
 
-  const actionLabel = useMemo(() => {
-    if (step === STEPS.INFO) {
-      return 'Search'
-    }
+  const actionLabel = 'Search'
 
-    return 'Next'
-  }, [step]);
 
-  const secondaryActionLabel = useMemo(() => {
-    if (step === STEPS.LOCATION) {
-      return undefined
-    }
 
-    return 'Back'
-  }, [step]);
-
-  let bodyContent = (
-    <div className="flex flex-col gap-8">
-      <Heading
-        title="Where do you wanna go?"
-        subtitle="Find the perfect location!"
+    let bodyContent = (
+      <div className="flex flex-col gap-8 modal-content">
+        <Heading
+          title="Find your perfect place!"
+        />       
+        <hr />
+        <div className="slider-container">
+        <label htmlFor="rent-slider">Rent Range</label>
+        <Slider
+          className={"slider"}
+          range
+          min={0}
+          max={200000}
+          step={1000}
+          value={rent}
+          onChange={(value: number | number[]) => {
+            if((Array.isArray(value)))
+            setRent(value)}}
+          allowCross={false}
+          pushable
+        />
+        <div className="slider-values">
+          <span>{rent[0]}</span>
+          <span>{rent[1]}</span>
+        </div>
+      </div>
+    <hr />
+      <div className="brokerge-title">
+        <label htmlFor="brokergeField">Brokerage</label>
+        </div>
+        <div className="brokerge-options">
+        <label className="brokerge-option-label" htmlFor="brokergeOption1">
+          <input
+            type="radio"
+            id="brokergeOption1"
+            name="brokergeOptions"
+            value="brokergeOption1"
+            checked={brokerge === 'brokergeOption1'}
+            onChange={handlebrokergeChange}
+          />
+          <span className="brokerge-option-text">Yes</span>
+        </label>
+        <label className="brokerge-option-label" htmlFor="brokergeOption2">
+          <input
+            type="radio"
+            id="brokergeOption2"
+            name="brokergeOptions"
+            value="brokergeOption2"
+            checked={brokerge === 'brokergeOption2'}
+            onChange={handlebrokergeChange}
+          />
+          <span className="brokerge-option-text">No</span>
+        </label>
+       </div>
+    <hr />
+      <div>
+      <h1>Availability</h1>
+      <DatePicker
+        selected={selectedDate}
+        onChange={handleDateChange}
+        dateFormat="MMMM d, yyyy"
+        placeholderText="Select a date"
       />
-      <CountrySelect 
-        value={location} 
-        onChange={(value) => 
-          setLocation(value as CountrySelectValue)} 
-      />
-      <hr />
-      <Map center={location?.latlng} />
     </div>
-  )
-
-  if (step === STEPS.DATE) {
-    bodyContent = (
-      <div className="flex flex-col gap-8">
-        <Heading
-          title="When do you plan to go?"
-          subtitle="Make sure everyone is free!"
-        />
-        <Calendar
-          onChange={(value) => setDateRange(value.selection)}
-          value={dateRange}
-        />
+    <hr />
+    <FilterBHKs
+    bhk={bhk}
+    setbhk={handleSeletedBHKsData}
+    />
+    <hr />
+      {/* Filter by Occupancy */}
+    <FilterOccupancy
+    occupancy={occupancy}
+    setOccupancy={handleOccupancyData}
+    />
+    <hr />
+      {/* Filter by Available For */}
+      <FilterAvailableFor
+      availableFor={availableFor}
+      setAvailableFor={handleAvailableForData}
+      />
+    <hr />
+      {/* Filter by Furnishing Status */}
+      <FilterFurnishingStatus
+      furnishingStatus={furnishingStatus}
+      setFurnishingStatus={handleFurnishingStatusData}
+      />
+    <hr />
       </div>
     )
-  }
-
-  if (step === STEPS.INFO) {
-    bodyContent = (
-      <div className="flex flex-col gap-8">
-        <Heading
-          title="More information"
-          subtitle="Find your perfect place!"
-        />
-        <Counter 
-          onChange={(value) => setGuestCount(value)}
-          value={guestCount}
-          title="Guests" 
-          subtitle="How many guests are coming?"
-        />
-        <hr />
-        <Counter 
-          onChange={(value) => setRoomCount(value)}
-          value={roomCount}
-          title="Rooms" 
-          subtitle="How many rooms do you need?"
-        />        
-        <hr />
-        <Counter 
-          onChange={(value) => {
-            setBathroomCount(value)
-          }}
-          value={bathroomCount}
-          title="Bathrooms"
-          subtitle="How many bahtrooms do you need?"
-        />
-      </div>
-    )
-  }
 
   return (
     <Modal
@@ -187,8 +206,6 @@ const SearchModal = () => {
       title="Filters"
       actionLabel={actionLabel}
       onSubmit={onSubmit}
-      secondaryActionLabel={secondaryActionLabel}
-      secondaryAction={step === STEPS.LOCATION ? undefined : onBack}
       onClose={searchModal.onClose}
       body={bodyContent}
     />

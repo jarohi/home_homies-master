@@ -14,3 +14,7 @@
   .property-table th {
     background-color: #f2f2f2;
   }
+
+  .icon {
+    margin-right: 0.5rem; /* Adjust the spacing between icon and text */
+  }

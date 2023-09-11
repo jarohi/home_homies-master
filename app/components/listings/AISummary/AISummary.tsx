@@ -1,126 +1,96 @@
-'use client';
+  'use client';
 
-import { Range } from "react-date-range";
+  import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import Button from "../../Button";
-import Calendar from "../../inputs/Calendar";
+  import "./AISummary.css"
+  import { faBed, faBuilding, faHouse, faKey, faMoneyBillTrendUp, faPersonShelter, faPhone, faRestroom } from '@fortawesome/free-solid-svg-icons';
 
-import "./AISummary.css"
+  interface AISummaryProps {
+    rent: number|null;
+    deposit: number|null;
+    brokerage: String|null;
+    numberOfRooms: number|null;
+    preferredTenants: String|null;
+    possession: Date|null;
+    propertyType: String|null;
+    contactDetails: String|null;
+  }
 
-interface AISummaryProps {
-  rent: number|null;
-  deposit: number|null;
-  brokerage: String|null;
-  numberOfRooms: number|null;
-  preferredTenants: String|null;
-  possession: Date|null;
-  propertyType: String|null;
-  contactDetails: String|null;
-}
-
-const AISummary: React.FC<
-  AISummaryProps
-> = ({
-  rent,
-  deposit,
-  brokerage,
-  numberOfRooms,
-  preferredTenants,
-  possession,
-  propertyType,
-  contactDetails,
-}) => {
-  return ( 
-    <div 
-      className="
-      bg-white 
-        rounded-xl 
-        border-[1px]
-      border-neutral-200 
-        overflow-hidden
-      "
-    >
-
-<table className="property-table">
-    <tr>
-      <th>Rent</th>
-      <th>Deposit</th>
-    </tr>
-    <tr>
-  <td>{rent}</td>
-  <td>{deposit}</td>
-    </tr>
-    <tr>
-      <th>Brokerage</th>
-      <th>Number of rooms</th>
-    </tr>
-    <tr>
-  <td>{brokerage}</td>
-  <td>{numberOfRooms}</td>
-    </tr>
-    <tr>
-      <th>Preferred Tenants</th>
-      <th>Posession</th>
-    </tr>
-    <tr>
-  <td>{preferredTenants}</td>
-<td>{possession?.toString()}</td>
-    </tr>
-    <tr>
-      <th>Property Type</th>
-      <th>Contact Details</th>
-    </tr>
-    <tr>
-  <td>{propertyType}</td>
-  <td>{contactDetails}</td>
-    </tr>
-  </table>
-      
-      {/* <div className="flex flex-row items-center gap-1 p-4">
-        <div className="text-2xl font-semibold">
-          $ {price}
-        </div>
-        <div className="font-light text-neutral-600">
-          night
-        </div>
-      </div>
-      <hr /> */}
-      
-      {/* <Calendar
-        value={dateRange}
-        disabledDates={disabledDates}
-        onChange={(value) => 
-          onChangeDate(value.selection)}
-      />
-      <hr />
-      <div className="p-4">
-        <Button 
-          disabled={disabled} 
-          label="Reserve" 
-          onClick={onSubmit}
-        />
-      </div>
-      <hr />
+  const AISummary: React.FC<
+    AISummaryProps
+  > = ({
+    rent,
+    deposit,
+    brokerage,
+    numberOfRooms,
+    preferredTenants,
+    possession,
+    propertyType,
+    contactDetails,
+  }) => {
+    return ( 
       <div 
         className="
-          p-4 
-          flex 
-          flex-row 
-          items-center 
-          justify-between
-          font-semibold
-          text-lg
+        bg-white 
+          rounded-xl 
+          border-[1px]
+        border-neutral-200 
+          overflow-hidden
         "
       >
-        <div>
-          Total
-        </div>
-        <div>
-          $ {totalPrice}
-        </div>
-      </div> */}
-    </div>
-   );
-}
- 
-export default AISummary;
+
+  <table className="property-table">
+    { (rent!==null ) && 
+      <tr> 
+        <th><FontAwesomeIcon icon={faHouse} className="icon"  />Rent</th>
+        <th>{rent}</th>
+      </tr>
+  }
+  { (deposit!==null) &&
+      <tr>
+    <td><FontAwesomeIcon icon={faMoneyBillTrendUp} className="icon"  />Deposit</td>
+    <td>{deposit}</td>
+      </tr>
+  }
+  { (brokerage!=null && brokerage?.toUpperCase()!=="NULL") &&
+      <tr>
+        <th><FontAwesomeIcon icon={faPersonShelter} className="icon" />Brokerage</th>
+        <th>{brokerage.toUpperCase()}</th>
+      </tr>
+  }
+  { (numberOfRooms!=null ) &&
+      <tr>
+    <td><FontAwesomeIcon icon={faBed} className="icon"  />Number of rooms</td>
+    <td>{numberOfRooms}</td>
+      </tr>
+  }
+  { (preferredTenants!=null && preferredTenants?.toUpperCase()!=="NULL") &&
+      <tr>
+        <th><FontAwesomeIcon icon={faRestroom} className="icon" />Preferred Tenants</th>
+        <th>{preferredTenants.toUpperCase()}</th>
+      </tr>
+  }
+  { (possession!=null) &&
+      <tr>
+    <td><FontAwesomeIcon icon={faKey} className="icon" />Possesion</td>
+  <td>{possession?.toString()}</td>
+      </tr>
+  }
+  { (propertyType!=null && propertyType?.toUpperCase()!=="NULL") &&
+      <tr>
+        <th><FontAwesomeIcon icon={faBuilding} className="icon"/>Property Type</th>
+        <th>{propertyType.toUpperCase()}</th>
+      </tr>
+  }
+      { (contactDetails!=null && contactDetails?.toUpperCase()!=="NULL") &&
+      <tr>
+    <td><FontAwesomeIcon icon={faPhone} className="icon"/>Contact Details</td>
+    <td>{contactDetails.toUpperCase()}</td>
+      </tr>
+    }
+    </table>
+      </div>
+    );
+  }
+  
+  export default AISummary;
