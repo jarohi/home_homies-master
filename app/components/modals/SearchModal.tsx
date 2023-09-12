@@ -17,6 +17,8 @@ import FilterBHKs from './Filters/FilterBHKs';
 import FilterOccupancy from './Filters/FilterOccupancy';
 import FilterAvailableFor from './Filters/FilterAvailableFor';
 import FilterFurnishingStatus from './Filters/FilterFurnishingStatus';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRedo } from '@fortawesome/free-solid-svg-icons';
 
 
 const SearchModal = () => {
@@ -26,13 +28,32 @@ const SearchModal = () => {
 
 
   const [rent, setRent] = useState([0, 10000]);
-  const [brokerge, setbrokerge] = useState(null);
+  const [brokerage, setbrokerage] = useState(null);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [bhk, setbhk] = useState<string[]>([]);
   const [occupancy,setOccupancy] = useState<string[]>([]);
   const [availableFor, setAvailableFor] = useState<string[]>([]);
   const [furnishingStatus, setFurnishingStatus] = useState<string[]>([]);
 
+  const handleResetFilters = () => {
+    // Reset all filter-related state variables
+    setRent([0, 10000]);
+    setbrokerage(null);
+    setbhk([]);
+    setOccupancy([]);
+    setAvailableFor([]);
+    setFurnishingStatus([]);
+    setSelectedDate(null);
+    // Add more reset logic as needed
+  };
+
+  // JSX for the reset button
+    const resetButton = (
+      <button className="reset-button" onClick={handleResetFilters}>
+         <FontAwesomeIcon icon={faRedo} className="fa-xs" />
+         <span className="reset-button-text">Reset</span>
+      </button>
+    );
 
   const handleDateChange = (date: Date | null) => {
     setSelectedDate(date);
@@ -59,9 +80,9 @@ const SearchModal = () => {
     console.log('occupancy', occupancy);
   }
 
- // Handle changes when a brokerge option is selected
-  const handlebrokergeChange = (event: any) => {
-    setbrokerge(event.target.value);
+ // Handle changes when a brokerage option is selected
+  const handlebrokerageChange = (event: any) => {
+    setbrokerage(event.target.value);
   };
 
   const onSubmit = useCallback(async () => {
@@ -72,13 +93,10 @@ const SearchModal = () => {
       currentQuery = qs.parse(params.toString())
     }
 
-    console.log('in SearchModel', bhk);
-    console.log('in SearchModel occupancy', occupancy);
-
     const updatedQuery: any = {
       ...currentQuery,
       rent,
-      brokerge,
+      brokerage,
       bhk,
       occupancy,
       availableFor,
@@ -98,6 +116,7 @@ const SearchModal = () => {
     location, 
     router,
     rent,
+    brokerage,
     bhk,
     occupancy,
     availableFor,
@@ -136,31 +155,29 @@ const SearchModal = () => {
         </div>
       </div>
     <hr />
-      <div className="brokerge-title">
-        <label htmlFor="brokergeField">Brokerage</label>
-        </div>
-        <div className="brokerge-options">
-        <label className="brokerge-option-label" htmlFor="brokergeOption1">
+        <div className="brokerage-options">
+        <label htmlFor="brokerageField">Brokerage</label>
+        <label className="brokerage-option-label" htmlFor="">
           <input
             type="radio"
-            id="brokergeOption1"
-            name="brokergeOptions"
-            value="brokergeOption1"
-            checked={brokerge === 'brokergeOption1'}
-            onChange={handlebrokergeChange}
+            id="brokerageOption1"
+            name="brokerageOptions"
+            value="yes"
+            checked={brokerage === 'yes'}
+            onChange={handlebrokerageChange}
           />
-          <span className="brokerge-option-text">Yes</span>
+          <span className="brokerage-option-text">Yes</span>
         </label>
-        <label className="brokerge-option-label" htmlFor="brokergeOption2">
+        <label className="brokerage-option-label" htmlFor="brokerageOption2">
           <input
             type="radio"
-            id="brokergeOption2"
-            name="brokergeOptions"
-            value="brokergeOption2"
-            checked={brokerge === 'brokergeOption2'}
-            onChange={handlebrokergeChange}
+            id="brokerageOption2"
+            name="brokerageOptions"
+            value="no"
+            checked={brokerage === 'no'}
+            onChange={handlebrokerageChange}
           />
-          <span className="brokerge-option-text">No</span>
+          <span className="brokerage-option-text">No</span>
         </label>
        </div>
     <hr />
@@ -204,6 +221,7 @@ const SearchModal = () => {
     <Modal
       isOpen={searchModal.isOpen}
       title="Filters"
+      resetButton={resetButton}
       actionLabel={actionLabel}
       onSubmit={onSubmit}
       onClose={searchModal.onClose}

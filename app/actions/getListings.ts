@@ -4,7 +4,7 @@ export interface IListingsParams {
   userId?: string;
   rent?: number[] | null;
   deposit?: number | null;
-  brokerge?: string;
+  brokerage?: string;
   createdAt?: Date | null;
   availability?: Date | null;
   bhk?: string[] | null;
@@ -22,7 +22,7 @@ export default async function getListings(
     const {
       userId,
       rent, 
-      brokerge,
+      brokerage,
       bhk,
       occupancy,
       availableFor
@@ -42,11 +42,10 @@ export default async function getListings(
       console.log('query rent', query.rent);
     } 
 
-    if (brokerge) {
-      query.brokerge = {
-        lte: +brokerge
-      }
+    if (brokerage) {
+      query.brokerage = brokerage
     }
+
     console.log('bhk outside if', bhk)
     if(bhk && bhk.length > 0) {
       console.log('checking if bhk is an array', Array.isArray(bhk));
@@ -75,9 +74,9 @@ export default async function getListings(
     
     const listings = await prisma.post.findMany({
       where: query,
-      // orderBy: {
-      //   createdAt: 'desc'
-      // }
+      orderBy: {
+        createdAt: 'desc'
+      }
     });
 
     const safeListings = listings.map((listing) => ({

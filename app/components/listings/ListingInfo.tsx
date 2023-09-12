@@ -15,10 +15,10 @@ const Map = dynamic(() => import('../Map'), {
 
 interface ListingInfoProps {
   user: SafeUser,
-  rent: number,
-  deposit: number,
-  brokerage: String,
-  original_post: String,
+  rent: number|null,
+  deposit: number|null,
+  brokerage: String|null,
+  original_listing: String,
   originalPostUrl: string
 
   // locationValue: string;
@@ -29,7 +29,7 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
   rent,
   deposit,
   brokerage,
-  original_post,
+  original_listing,
   originalPostUrl
   // locationValue,
 }) => {
@@ -77,7 +77,7 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
         </div>
       </div> */}
       <hr />
-       {original_post}
+       {original_listing}
       <hr />
       {/* <Map center={coordinates} /> */}
     </div>

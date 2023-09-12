@@ -40,6 +40,14 @@ const ListingCard: React.FC<ListingCardProps> = ({
 
   // const location = getByValue(data.locationValue);
 
+  const location = useMemo(() => {
+    if (data.location_area) {
+      return data.location_area;
+    }
+
+    return "";
+  }, [data.location_area]);
+
   const handleCancel = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => { 
     e.stopPropagation();
@@ -59,16 +67,25 @@ const ListingCard: React.FC<ListingCardProps> = ({
     return data.rent;
   }, [reservation, data.rent]);
 
-  const reservationDate = useMemo(() => {
-    if (!reservation) {
-      return null;
-    }
+  // const reservationDate = useMemo(() => {
+  //   if (!reservation) {
+  //     return null;
+  //   }
   
-    const start = new Date(reservation.startDate);
-    const end = new Date(reservation.endDate);
+  //   const start = new Date(reservation.startDate);
+  //   const end = new Date(reservation.endDate);
 
-    return `${format(start, 'PP')} - ${format(end, 'PP')}`;
-  }, [reservation]);
+  //   return `${format(start, 'PP')} - ${format(end, 'PP')}`;
+  // }, [reservation]);
+
+  function capitalizeWords(str: string) {
+    return str
+      .split(' ')
+      .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  }
+  
+  const capitalizedLocation = capitalizeWords(location);
 
   return (
     <div 
@@ -110,16 +127,17 @@ const ListingCard: React.FC<ListingCardProps> = ({
         </div>
         <div className="font-semibold text-lg">
           {/* {location?.region}, {location?.label} */}
+          {capitalizedLocation}
         </div>
-        <div className="font-light text-neutral-500">
+        {/* <div className="font-light text-neutral-500">
           {reservationDate || data.property_type}
-        </div>
+        </div> */}
         <div className="flex flex-row items-center gap-1">
           <div className="font-semibold">
-            $ {price}
+             ₹ {price}
           </div>
           {!reservation && (
-            <div className="font-light">night</div>
+            <div className="font-light">/ month</div>
           )}
         </div>
         {onAction && actionLabel && (
