@@ -37,6 +37,7 @@ const ListingHead: React.FC<ListingHeadProps> = ({
 
   const capitalizedLocation = capitalizeWords(location_type_val);
 
+  images_url = images_url.replace(/[{}]/g, ''); // Remove curly braces
   const imageUrls = images_url.split(",");
   
   return ( 
@@ -59,6 +60,8 @@ const ListingHead: React.FC<ListingHeadProps> = ({
           alt="Image"
         /> */}
         <ImageCollage images={imageUrls} />
+
+
         <div
           className="
             absolute

@@ -86,6 +86,8 @@ const ListingCard: React.FC<ListingCardProps> = ({
   }
   
   const capitalizedLocation = capitalizeWords(location);
+  const sanitizedImages  = data.images_url.replace(/[{}]/g, ''); // Remove curly braces
+  const imageUrls = sanitizedImages.split(",");
 
   return (
     <div 
@@ -111,7 +113,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
               group-hover:scale-110 
               transition
             "
-            src={data.images_url}
+            src={imageUrls[0]}
             alt="Listing"
           />
           <div className="
