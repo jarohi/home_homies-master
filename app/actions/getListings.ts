@@ -5,8 +5,8 @@ export interface IListingsParams {
   rent?: number[] | null;
   deposit?: number | null;
   brokerge?: string;
-  createdAt?: Date | null;
-  availability?: Date | null;
+  createdAt?: string | null;
+  availability?: string | null;
   bhk?: string[] | null;
   occupancy?: string[] | null;
   availableFor?: string[] | null;
@@ -82,7 +82,7 @@ export default async function getListings(
 
     const safeListings = listings.map((post) => ({
       ...post,
-      // createdAt: listing.createdAt.toISOString(),
+    // createdAt: listings.createdAt?.toISOString(),
     }));
 
     return safeListings;

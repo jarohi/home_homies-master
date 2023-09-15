@@ -14,11 +14,11 @@ model User {
   id             String    @id @default(uuid()) @map("_id")
   name           String?
   email          String?   @unique
-  emailVerified  DateTime?
+  emailVerified  DateTime
   image          String?
   hashedPassword String?
-  createdAt      DateTime?  @default(now())
-  updatedAt      DateTime?  @updatedAt
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
   favoriteIds    String[]
 
   accounts     Account[]
@@ -28,7 +28,7 @@ model User {
 
 model Account {
   id                String  @id @default(uuid()) @map("_id")
-  userId            String?
+  userId            String
   type              String?
   provider          String?
   providerAccountId String?
@@ -40,7 +40,7 @@ model Account {
   id_token          String?
   session_state     String?
 
-  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -64,7 +64,7 @@ model Account {
 
 model listing {
   id                String   @id @default(uuid()) @map("_id")
-  userId            String?
+  userId            String
   rent              Int?
   deposit           Int?
   brokerage         String?
@@ -81,19 +81,19 @@ model listing {
   images_url        String?
   original_listing     String?
 
-  user        User?          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   Reservation Reservation[]
 }
 
 model Reservation {
   id         String   @id @default(uuid()) @map("_id")
-  userId     String?
+  userId     String
   listingId  String?
   startDate  DateTime?
   endDate    DateTime?
   totalPrice Int?
   createdAt  DateTime? @default(now())
 
-  user    User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   listing listing? @relation(fields: [listingId], references: [id], onDelete: Cascade)
 }

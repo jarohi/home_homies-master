@@ -18,8 +18,8 @@ interface ListingInfoProps {
   rent: number|null,
   deposit: number|null,
   brokerage: String|null,
-  original_listing: String,
-  originalPostUrl: string
+  original_listing: string|null,
+  originalPostUrl: string|null
 
   // locationValue: string;
 }
@@ -40,7 +40,9 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
   return ( 
     <div className="col-span-4 flex flex-col gap-8">
       <div className="app">
+        { (originalPostUrl != null) &&
       <VisitOriginalPostButton url={originalPostUrl} />
+        }
       </div>
       {/* <div className="flex flex-col gap-2">
         <div 

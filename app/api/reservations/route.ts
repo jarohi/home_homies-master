@@ -29,16 +29,16 @@ export async function POST(
       id: listingId
     },
     data: {
-      reservations: {
-        create: {
-          userId: currentUser.id,
-          startDate,
-          endDate,
-          totalPrice,
-        }
+      // reservations: {
+      //   create: {
+      //     userId: currentUser.id,
+      //     startDate,
+      //     endDate,
+      //     totalPrice,
+      //   }
       }
     }
-  });
+  );
 
   return NextResponse.json(listingAndReservation);
 }

@@ -86,8 +86,9 @@ const ListingCard: React.FC<ListingCardProps> = ({
   }
   
   const capitalizedLocation = capitalizeWords(location);
-  const sanitizedImages  = data.images_url.replace(/[{}]/g, ''); // Remove curly braces
-  const imageUrls = sanitizedImages.split(",");
+  const sanitizedImages  = data.images_url?.replace(/[{}]/g, ''); // Remove curly braces
+  const imageUrls = sanitizedImages?.split(",");
+  const displayImage = Array.isArray(imageUrls) && imageUrls.length > 0 ? imageUrls[0] : "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmVhdXRpZnVsJTIwaG91c2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80";
 
   return (
     <div 
@@ -113,7 +114,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
               group-hover:scale-110 
               transition
             "
-            src={imageUrls[0]}
+            src={displayImage}
             alt="Listing"
           />
           <div className="

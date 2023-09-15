@@ -15,12 +15,12 @@ function capitalizeWords(str: string) {
 }
 
 interface ListingHeadProps {
-  bhk: number;
-  rent: number;
-  images_url: string;
+  bhk: number | null;
+  rent: number | null;
+  images_url: string | null;
   id: string;
-  currentUser?: SafeUser | null
-  location_type: String;
+  currentUser?: SafeUser | null;
+  location_type: String | null;
 }
 
 const ListingHead: React.FC<ListingHeadProps> = ({
@@ -37,8 +37,9 @@ const ListingHead: React.FC<ListingHeadProps> = ({
 
   const capitalizedLocation = capitalizeWords(location_type_val);
 
-  images_url = images_url.replace(/[{}]/g, ''); // Remove curly braces
-  const imageUrls = images_url.split(",");
+  images_url !== null? images_url?.replace(/[{}]/g, ''): ""; // Remove curly braces
+  const imageUrls = (images_url !== "" && images_url !== null)? images_url.split(","): [];
+  
   
   return ( 
     <>
