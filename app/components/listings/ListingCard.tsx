@@ -40,6 +40,14 @@ const ListingCard: React.FC<ListingCardProps> = ({
 
   // const location = getByValue(data.locationValue);
 
+  const location = useMemo(() => {
+    if (data.location_area) {
+      return data.location_area;
+    }
+
+    return "";
+  }, [data.location_area]);
+
   const handleCancel = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => { 
     e.stopPropagation();
@@ -59,16 +67,28 @@ const ListingCard: React.FC<ListingCardProps> = ({
     return data.rent;
   }, [reservation, data.rent]);
 
-  const reservationDate = useMemo(() => {
-    if (!reservation) {
-      return null;
-    }
+  // const reservationDate = useMemo(() => {
+  //   if (!reservation) {
+  //     return null;
+  //   }
   
-    const start = new Date(reservation.startDate);
-    const end = new Date(reservation.endDate);
+  //   const start = new Date(reservation.startDate);
+  //   const end = new Date(reservation.endDate);
 
-    return `${format(start, 'PP')} - ${format(end, 'PP')}`;
-  }, [reservation]);
+  //   return `${format(start, 'PP')} - ${format(end, 'PP')}`;
+  // }, [reservation]);
+
+  function capitalizeWords(str: string) {
+    return str
+      .split(' ')
+      .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  }
+  
+  const capitalizedLocation = capitalizeWords(location);
+  const sanitizedImages  = data.images_url?.replace(/[{}]/g, ''); // Remove curly braces
+  const imageUrls = sanitizedImages?.split(",");
+  const displayImage = Array.isArray(imageUrls) && imageUrls.length > 0 ? imageUrls[0] : "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmVhdXRpZnVsJTIwaG91c2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80";
 
   return (
     <div 
@@ -94,7 +114,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
               group-hover:scale-110 
               transition
             "
-            src={data.images_url}
+            src={displayImage}
             alt="Listing"
           />
           <div className="
@@ -110,16 +130,17 @@ const ListingCard: React.FC<ListingCardProps> = ({
         </div>
         <div className="font-semibold text-lg">
           {/* {location?.region}, {location?.label} */}
+          {capitalizedLocation}
         </div>
-        <div className="font-light text-neutral-500">
+        {/* <div className="font-light text-neutral-500">
           {reservationDate || data.property_type}
-        </div>
+        </div> */}
         <div className="flex flex-row items-center gap-1">
           <div className="font-semibold">
-            $ {price}
+             ₹ {price}
           </div>
           {!reservation && (
-            <div className="font-light">night</div>
+            <div className="font-light">/ month</div>
           )}
         </div>
         {onAction && actionLabel && (

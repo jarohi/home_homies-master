@@ -1,20 +1,26 @@
 'use client';
 
-import Image from "next/image";
-
 import useCountries from "@/app/hooks/useCountries";
 import { SafeUser } from "@/app/types";
 
 import Heading from "../Heading";
 import HeartButton from "../HeartButton";
+import ImageCollage from "../ImageCollage/ImageCollage";
+
+function capitalizeWords(str: string) {
+  return str
+    .split(' ')
+    .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
 
 interface ListingHeadProps {
-  bhk: number;
-  rent: number;
-  images_url: string;
+  bhk: number | null;
+  rent: number | null;
+  images_url: string | null;
   id: string;
-  currentUser?: SafeUser | null
-  location_type: String;
+  currentUser?: SafeUser | null;
+  location_type: String | null;
 }
 
 const ListingHead: React.FC<ListingHeadProps> = ({
@@ -27,27 +33,36 @@ const ListingHead: React.FC<ListingHeadProps> = ({
 }) => {
   const { getByValue } = useCountries();
 
-  // const location = getByValue(locationValue);
+  const location_type_val = location_type? `in ${location_type}` : ""
 
+  const capitalizedLocation = capitalizeWords(location_type_val);
+
+  images_url !== null? images_url?.replace(/[{}]/g, ''): ""; // Remove curly braces
+  const imageUrls = (images_url !== "" && images_url !== null)? images_url.split(","): [];
+  
+  
   return ( 
     <>
       <Heading
-        title={`Occupancy in ${bhk?.toString()} bhk in ${location_type}`}
+        title={`Occupancy in ${bhk?.toString()} bhk ${capitalizedLocation}`}
       />
       <div className="
           w-full
-          h-[60vh]
+          h-[40vh]
           overflow-hidden 
           rounded-xl
           relative
         "
       >
-        <Image
+        {/* <Image
           src={images_url}
           fill
           className="object-cover w-full"
           alt="Image"
-        />
+        /> */}
+        <ImageCollage images={imageUrls} />
+
+
         <div
           className="
             absolute
@@ -55,12 +70,10 @@ const ListingHead: React.FC<ListingHeadProps> = ({
             right-5
           "
         >
-          <HeartButton 
-            listingId={id}
-            currentUser={currentUser}
-          />
         </div>
       </div>
+
+
     </>
    );
 }
