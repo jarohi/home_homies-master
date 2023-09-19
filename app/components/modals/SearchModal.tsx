@@ -60,24 +60,19 @@ const SearchModal = () => {
   };
 
   const handleSeletedBHKsData = (data: any) => {
-    console.log('handleDataChange in SearchModel', data)
     setbhk(data);
-    console.log('bhk', bhk);
   }
 
   const handleFurnishingStatusData = (data: any) => {
     setFurnishingStatus(data);
-    console.log('FurnishingStatus', furnishingStatus);
   }
 
   const handleAvailableForData = (data: any) => {
     setAvailableFor(data);
-    console.log('AvailableFor', availableFor);
   }
 
   const handleOccupancyData = (data: any) => {
     setOccupancy(data);
-    console.log('occupancy', occupancy);
   }
 
  // Handle changes when a brokerage option is selected

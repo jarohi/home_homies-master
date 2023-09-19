@@ -5,16 +5,16 @@
   import "./AISummary.css"
   import { faBed, faBuilding, faHouse, faKey, faMoneyBillTrendUp, faPersonShelter, faPhone, faRestroom } from '@fortawesome/free-solid-svg-icons';
 
-interface AISummaryProps {
-  rent: number|null;
-  deposit: number|null;
-  brokerage: String|null;
-  numberOfRooms: number|null;
-  preferredTenants: String|null;
-  possession: Date|null;
-  propertyType: String|null;
-  contactDetails: String|null;
-}
+  interface AISummaryProps {
+    rent: number|null;
+    deposit: number|null;
+    brokerage: String|null;
+    numberOfRooms: number|null;
+    preferredTenants: String|null;
+    possession: Date|null;
+    propertyType: String|null;
+    contactDetails: String|null;
+  }
 
   const AISummary: React.FC<
     AISummaryProps

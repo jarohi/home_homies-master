@@ -24,10 +24,10 @@ const ListingPage = async () => {
 
   return (
     <ClientOnly>
-      <FavoritesClient
+      {/* <FavoritesClient
         listings={listings}
         currentUser={currentUser}
-      />
+      /> */}
     </ClientOnly>
   );
 }

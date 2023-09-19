@@ -10,7 +10,7 @@ export default async function getListingById(
   try {
     const { listingId } = params;
 
-    const listing = await prisma.post.findUnique({
+    const listing = await prisma.listing.findUnique({
       where: {
         id: listingId,
       },
@@ -25,13 +25,13 @@ export default async function getListingById(
 
     return {
       ...listing,
-      // createdAt: listing.createdAt.toString(),
+      createdAt: listing.createdAt,
       user: {
         ...listing.user,
-        createdAt: listing.user.createdAt.toString(),
-        updatedAt: listing.user.updatedAt.toString(),
+        createdAt: listing.user?.createdAt?.toString(),
+        updatedAt: listing.user?.updatedAt?.toString(),
         emailVerified: 
-          listing.user.emailVerified?.toString() || null,
+          listing.user?.emailVerified?.toString() || null,
       }
     };
   } catch (error: any) {
