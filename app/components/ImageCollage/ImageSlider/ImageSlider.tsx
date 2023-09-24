@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import './ImageSlider.css'; // Import your styling
+import Image from "next/image";
 
 interface ImageSliderProps {
   images: string[];
@@ -37,7 +38,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
         <button className="slider-nav prev" onClick={prevImage}>
           &lt;
         </button>
-        <img
+        <Image
           src={images[currentImageIndex]}
           alt={`Image ${currentImageIndex + 1}`}
         />

@@ -73,7 +73,7 @@ const LoginModal = () => {
         title="Welcome back"
         subtitle="Login to your account!"
       />
-      <Input
+      {/* <Input
         id="email"
         label="Email"
         disabled={isLoading}
@@ -89,7 +89,7 @@ const LoginModal = () => {
         register={register}
         errors={errors}
         required
-      />
+      /> */}
     </div>
   )
 
@@ -102,15 +102,15 @@ const LoginModal = () => {
         icon={FcGoogle}
         onClick={() => signIn('google')}
       />
-      <Button 
+      {/* <Button 
         outline 
         label="Continue with Github"
         icon={AiFillGithub}
         onClick={() => signIn('github')}
-      />
+      /> */}
       <div className="
       text-neutral-500 text-center mt-4 font-light">
-        <p>First time using Airbnb?
+        <p>First time using Home and Homies?
           <span 
             onClick={onToggle} 
             className="

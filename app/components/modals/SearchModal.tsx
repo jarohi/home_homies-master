@@ -26,7 +26,7 @@ const SearchModal = () => {
 
 
   const [rent, setRent] = useState([0, 10000]);
-  const [brokerge, setbrokerge] = useState(null);
+  const [brokerage, setbrokerage] = useState(null);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [bhk, setbhk] = useState<string[]>([]);
   const [occupancy,setOccupancy] = useState<string[]>([]);
@@ -59,9 +59,9 @@ const SearchModal = () => {
     console.log('occupancy', occupancy);
   }
 
- // Handle changes when a brokerge option is selected
-  const handlebrokergeChange = (event: any) => {
-    setbrokerge(event.target.value);
+ // Handle changes when a brokerage option is selected
+  const handlebrokerageChange = (event: any) => {
+    setbrokerage(event.target.value);
   };
 
   const onSubmit = useCallback(async () => {
@@ -78,7 +78,7 @@ const SearchModal = () => {
     const updatedQuery: any = {
       ...currentQuery,
       rent,
-      brokerge,
+      brokerage,
       bhk,
       occupancy,
       availableFor,
@@ -136,31 +136,31 @@ const SearchModal = () => {
         </div>
       </div>
     <hr />
-      <div className="brokerge-title">
-        <label htmlFor="brokergeField">Brokerage</label>
+      <div className="brokerage-title">
+        <label htmlFor="brokerageField">Brokerage</label>
         </div>
-        <div className="brokerge-options">
-        <label className="brokerge-option-label" htmlFor="brokergeOption1">
+        <div className="brokerage-options">
+        <label className="brokerage-option-label" htmlFor="brokerageOption1">
           <input
             type="radio"
-            id="brokergeOption1"
-            name="brokergeOptions"
-            value="brokergeOption1"
-            checked={brokerge === 'brokergeOption1'}
-            onChange={handlebrokergeChange}
+            id="brokerageOption1"
+            name="brokerageOptions"
+            value="brokerageOption1"
+            checked={brokerage === 'brokerageOption1'}
+            onChange={handlebrokerageChange}
           />
-          <span className="brokerge-option-text">Yes</span>
+          <span className="brokerage-option-text">Yes</span>
         </label>
-        <label className="brokerge-option-label" htmlFor="brokergeOption2">
+        <label className="brokerage-option-label" htmlFor="brokerageOption2">
           <input
             type="radio"
-            id="brokergeOption2"
-            name="brokergeOptions"
-            value="brokergeOption2"
-            checked={brokerge === 'brokergeOption2'}
-            onChange={handlebrokergeChange}
+            id="brokerageOption2"
+            name="brokerageOptions"
+            value="brokerageOption2"
+            checked={brokerage === 'brokerageOption2'}
+            onChange={handlebrokerageChange}
           />
-          <span className="brokerge-option-text">No</span>
+          <span className="brokerage-option-text">No</span>
         </label>
        </div>
     <hr />

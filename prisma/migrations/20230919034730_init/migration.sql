@@ -1,22 +1,22 @@
 -- CreateTable
 CREATE TABLE "User" (
-    "_id" TEXT NOT NULL,
+    "id" TEXT NOT NULL,
     "name" TEXT,
     "email" TEXT,
-    "emailVerified" TIMESTAMP(3) NOT NULL,
+    "emailVerified" TIMESTAMP(3),
     "image" TEXT,
     "hashedPassword" TEXT,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "createdat" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "favoriteIds" TEXT[],
 
-    CONSTRAINT "User_pkey" PRIMARY KEY ("_id")
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Account" (
-    "_id" TEXT NOT NULL,
-    "userId" TEXT NOT NULL,
+    "id" TEXT NOT NULL,
+    "userid" TEXT NOT NULL,
     "type" TEXT,
     "provider" TEXT,
     "providerAccountId" TEXT,
@@ -28,17 +28,17 @@ CREATE TABLE "Account" (
     "id_token" TEXT,
     "session_state" TEXT,
 
-    CONSTRAINT "Account_pkey" PRIMARY KEY ("_id")
+    CONSTRAINT "Account_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "listing" (
-    "_id" TEXT NOT NULL,
-    "userId" TEXT NOT NULL,
+    "id" TEXT NOT NULL,
+    "userid" TEXT NOT NULL,
     "rent" INTEGER,
     "deposit" INTEGER,
     "brokerage" TEXT,
-    "createdAt" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
+    "createdat" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
     "availability" TIMESTAMP(3),
     "bhk" INTEGER,
     "occupancy" TEXT,
@@ -50,21 +50,22 @@ CREATE TABLE "listing" (
     "listing_url" TEXT,
     "images_url" TEXT,
     "original_listing" TEXT,
+    "city" TEXT NOT NULL,
 
-    CONSTRAINT "listing_pkey" PRIMARY KEY ("_id")
+    CONSTRAINT "listing_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Reservation" (
-    "_id" TEXT NOT NULL,
-    "userId" TEXT NOT NULL,
+    "id" TEXT NOT NULL,
+    "userid" TEXT NOT NULL,
     "listingId" TEXT,
     "startDate" TIMESTAMP(3),
     "endDate" TIMESTAMP(3),
     "totalPrice" INTEGER,
-    "createdAt" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
+    "createdat" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "Reservation_pkey" PRIMARY KEY ("_id")
+    CONSTRAINT "Reservation_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -74,13 +75,13 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 CREATE UNIQUE INDEX "Account_provider_providerAccountId_key" ON "Account"("provider", "providerAccountId");
 
 -- AddForeignKey
-ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("_id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Account" ADD CONSTRAINT "Account_userid_fkey" FOREIGN KEY ("userid") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "listing" ADD CONSTRAINT "listing_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("_id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "listing" ADD CONSTRAINT "listing_userid_fkey" FOREIGN KEY ("userid") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Reservation" ADD CONSTRAINT "Reservation_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("_id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Reservation" ADD CONSTRAINT "Reservation_userid_fkey" FOREIGN KEY ("userid") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Reservation" ADD CONSTRAINT "Reservation_listingId_fkey" FOREIGN KEY ("listingId") REFERENCES "listing"("_id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Reservation" ADD CONSTRAINT "Reservation_listingId_fkey" FOREIGN KEY ("listingId") REFERENCES "listing"("id") ON DELETE CASCADE ON UPDATE CASCADE;

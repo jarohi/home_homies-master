@@ -14,7 +14,9 @@ export async function POST(
 
   const body = await request.json();
   const { 
-    userId,
+    city,
+    user,
+    userid,
     id,
     rent,
     deposit,
@@ -41,7 +43,9 @@ export async function POST(
 
   const listing = await prisma.listing.create({
     data: {
-      userId,      
+      city,
+      user,
+      userid,      
       id,
       rent,
       deposit,

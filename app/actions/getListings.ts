@@ -1,10 +1,10 @@
 import prisma from "@/app/libs/prismadb";
 
 export interface IListingsParams {
-  userId?: string;
+  userid?: string;
   rent?: number[] | null;
   deposit?: number | null;
-  brokerge?: string;
+  brokerage?: string;
   createdAt?: string | null;
   availability?: string | null;
   bhk?: string[] | null;
@@ -20,9 +20,9 @@ export default async function getListings(
 ) {
   try {
     const {
-      userId,
+      userid,
       rent, 
-      brokerge,
+      brokerage,
       bhk,
       occupancy,
       availableFor
@@ -30,8 +30,8 @@ export default async function getListings(
 
     let query: any = {};
 
-    if (userId) {
-      query.userId = userId;
+    if (userid) {
+      query.userid = userid;
     }
 
     if (rent) {
@@ -42,9 +42,9 @@ export default async function getListings(
       console.log('query rent', query.rent);
     } 
 
-    if (brokerge) {
-      query.brokerge = {
-        lte: +brokerge
+    if (brokerage) {
+      query.brokerage = {
+        lte: +brokerage
       }
     }
     console.log('bhk outside if', bhk)

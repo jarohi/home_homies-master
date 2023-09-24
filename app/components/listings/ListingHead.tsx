@@ -38,7 +38,8 @@ const ListingHead: React.FC<ListingHeadProps> = ({
   const capitalizedLocation = capitalizeWords(location_type_val);
 
   images_url !== null? images_url?.replace(/[{}]/g, ''): ""; // Remove curly braces
-  const imageUrls = (images_url !== "" && images_url !== null)? images_url.split(","): [];
+  let imageUrls = (images_url !== "" && images_url !== null)? images_url.split(","): [];
+  imageUrls = imageUrls.map( image => image.replace(/{|}/g, ''))
   
   
   return ( 

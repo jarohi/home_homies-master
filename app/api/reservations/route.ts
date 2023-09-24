@@ -31,7 +31,7 @@ export async function POST(
     data: {
       // reservations: {
       //   create: {
-      //     userId: currentUser.id,
+      //     userid: currentUser.id,
       //     startDate,
       //     endDate,
       //     totalPrice,

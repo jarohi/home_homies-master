@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './ImageCollage.css'; // Import your styling
 import ImageSlider from './ImageSlider/ImageSlider';
+import Image from "next/image";
 
 interface ImageCollageProps {
   images: string[];
@@ -25,8 +26,8 @@ const ImageCollage: React.FC<ImageCollageProps> = ({ images }) => {
       <div className="image-grid">
         {images.slice(0, visibleImages).map((image, index) => (
           <div key={index} className="image-item-container">
-            <img
-              src={image}
+            <Image
+              src={`${process.env.PUBLIC_URL}/${image}`}
               alt={`Image ${index + 1}`}
               onClick={() => handleImageClick(index)}
               className="image-item"

@@ -33,12 +33,12 @@
     color: #333;
   }
 
-  .brokerge-option-label {
+  .brokerage-option-label {
     display: flex;
     align-items: center; /* Vertically align radio button and option text */
   }
   
-  .brokerge-option-label input[type="radio"] {
+  .brokerage-option-label input[type="radio"] {
     margin-right: 8px; /* Add space to the right of the radio button */
   }
 
