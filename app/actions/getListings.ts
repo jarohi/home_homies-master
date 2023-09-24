@@ -13,6 +13,7 @@ export interface IListingsParams {
   furnishing_status?: string;
   property_type?: string;
   location_area?: string;
+  city: string;
 }
 
 export default async function getListings(
@@ -25,7 +26,8 @@ export default async function getListings(
       brokerage,
       bhk,
       occupancy,
-      availableFor
+      availableFor,
+      city
     } = params;
 
     let query: any = {};
@@ -70,6 +72,10 @@ export default async function getListings(
       query.available_for = {
         in: availableFor
       }
+    }
+
+    if(city) {
+      query.city = city;
     }
     
     const listings = await prisma.listing.findMany({

@@ -30,7 +30,8 @@ export async function POST(
     contact_details,
     listing_url,
     images_url,
-    original_listing
+    original_listing,
+    city
    } = body;
 
   Object.keys(body).forEach((value: any) => {
@@ -57,7 +58,8 @@ export async function POST(
       contact_details,
       listing_url,
       images_url,
-      original_listing
+      original_listing,
+      city,
     }
   });
 

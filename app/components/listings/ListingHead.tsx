@@ -34,12 +34,17 @@ const ListingHead: React.FC<ListingHeadProps> = ({
   const { getByValue } = useCountries();
 
   const location_type_val = location_type? `in ${location_type}` : ""
-
+  console.log('inside listing head');
 
   const capitalizedLocation = capitalizeWords(location_type_val);
 
-  images_url !== null? images_url?.replace(/[{}]/g, ''): ""; // Remove curly braces
-  const imageUrls = (images_url !== "" && images_url !== null)? images_url.split(","): [];
+  // console.log('images_url  before replace',images_url );
+  // images_url !== null? images_url?.replace(/[{}]/g, ''): ""; // Remove curly braces
+  // console.log('images_url  after replace', images_url );
+  let imageUrls = (images_url !== "" && images_url !== null)? images_url.split(","): [];
+  console.log('images_url after split', imageUrls);
+  imageUrls = imageUrls.map( image => image.replace(/{|}/g, ''));
+  console.log('images_url  after replace', imageUrls );
   
   
   return ( 
