@@ -34,6 +34,7 @@ const ListingHead: React.FC<ListingHeadProps> = ({
   const { getByValue } = useCountries();
 
   const location_type_val = location_type? `in ${location_type}` : ""
+  console.log('inside listing head');
 
   const capitalizedLocation = capitalizeWords(location_type_val);
 

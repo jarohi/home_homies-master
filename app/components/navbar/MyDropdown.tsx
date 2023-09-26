@@ -1,21 +1,25 @@
 
-
-import Dropdown from 'rsuite/Dropdown';
 import 'rsuite/dist/rsuite.min.css';
-import CodeIcon from '@rsuite/icons/Code';
-import PageIcon from '@rsuite/icons/Page';
-import DetailIcon from '@rsuite/icons/Detail';
-import FolderFillIcon from '@rsuite/icons/FolderFill';
-import FileDownloadIcon from '@rsuite/icons/FileDownload';
-import FileUploadIcon from '@rsuite/icons/FileUpload';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import qs from 'query-string';
+import { useRouter } from 'next/navigation';
 
 function MyDropdown() {
+  const router = useRouter();
   // Define the state variable and handleChange function
   const [value, setValue] = useState('city'); // Initialize value with 'city'
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setValue(event.target.value);
+    const selectedCity = event.target.value;
+    setValue(selectedCity);
+    const queryParameters = { city: selectedCity };
+
+    const url = qs.stringifyUrl({
+      url: '/',
+      query: queryParameters,
+    }, { skipNull: true });
+    
+    router.push(url);
   };
 
   return (
