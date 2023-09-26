@@ -5,15 +5,15 @@ export interface IListingsParams {
   rent?: number[] | null;
   deposit?: number | null;
   brokerage?: string;
-  createdAt?: string | null;
-  availability?: string | null;
+  createdAt?: Date | null;
+  availability?: Date | null;
   bhk?: string[] | null;
   occupancy?: string[] | null;
   availableFor?: string[] | null;
   furnishing_status?: string;
   property_type?: string;
   location_area?: string;
-  city: string;
+  city?: string;
 }
 
 export default async function getListings(
@@ -45,10 +45,9 @@ export default async function getListings(
     } 
 
     if (brokerage) {
-      query.brokerge = {
-        lte: +brokerage
-      }
+      query.brokerage = brokerage
     }
+
     console.log('bhk outside if', bhk)
     if(bhk && bhk.length > 0) {
       console.log('checking if bhk is an array', Array.isArray(bhk));
