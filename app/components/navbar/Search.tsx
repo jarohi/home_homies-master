@@ -7,7 +7,6 @@ import { FaAngleDown } from 'react-icons/fa';
 import { useSearchParams } from 'next/navigation';
 import { useMemo } from 'react';
 import { BiSearch } from 'react-icons/bi';
-import { differenceInDays } from 'date-fns';
 
 import useSearchModal from '@/app/hooks/useSearchModal';
 import useCountries from '@/app/hooks/useCountries';
@@ -68,13 +67,13 @@ const Search = () => {
       return `${guestCount} Guests`;
     }
 
-    return 'Location Search';
+    return 'Filters';
   }, [guestCount]);
 
   return ( 
     <div
     
-      //onClick={searchModal.onOpen}
+      // onClick={searchModal.onOpen}
       className="
         border-[1px] 
         w-full 
@@ -122,7 +121,9 @@ const Search = () => {
           "
         >
           
-          <div className="hidden sm:block">{guestLabel}</div>
+          <div 
+          onClick={searchModal.onOpen}
+          className="hidden sm:block"> {guestLabel}</div>
           <div 
             className="
               p-2 

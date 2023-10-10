@@ -10,6 +10,7 @@ interface ModalProps {
   onClose: () => void;
   onSubmit: () => void;
   title?: string;
+  resetButton?: React.ReactNode;
   body?: React.ReactElement;
   footer?: React.ReactElement;
   actionLabel: string;
@@ -22,7 +23,8 @@ const Modal: React.FC<ModalProps> = ({
   isOpen, 
   onClose, 
   onSubmit, 
-  title, 
+  title,
+  resetButton, 
   body, 
   actionLabel, 
   footer, 
@@ -149,6 +151,15 @@ const Modal: React.FC<ModalProps> = ({
                 <div className="text-lg font-semibold">
                   {title}
                 </div>
+                <div className="
+                border-0 
+                hover:opacity-70
+                transition
+                absolute
+                right-9
+                text-lg font-semibold">
+                  {resetButton}
+                  </div>
               </div>
               {/*body*/}
               <div className="relative p-6 flex-auto">
