@@ -13,6 +13,7 @@ export interface IListingsParams {
   furnishing_status?: string;
   property_type?: string;
   location_area?: string;
+  city: string;
 }
 
 export default async function getListings(
@@ -43,9 +44,7 @@ export default async function getListings(
     } 
 
     if (brokerage) {
-      query.brokerage = {
-        lte: +brokerage
-      }
+      query.brokerage = brokerage
     }
     console.log('bhk outside if', bhk)
     if(bhk && bhk.length > 0) {

@@ -63,7 +63,6 @@ model listing {
   listing_url          String?
   images_url        String?
   original_listing     String?
-  city              String
 
   user        User          @relation(fields: [userid], references: [id], onDelete: Cascade)
   Reservation Reservation[]
