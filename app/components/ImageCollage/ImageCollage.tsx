@@ -27,8 +27,10 @@ const ImageCollage: React.FC<ImageCollageProps> = ({ images }) => {
         {images.slice(0, visibleImages).map((image, index) => (
           <div key={index} className="image-item-container">
             <Image
-              src={`${process.env.PUBLIC_URL}/${image}`}
+              src={`${image}`}
               alt={`Image ${index + 1}`}
+              width={100}
+              height={100}
               onClick={() => handleImageClick(index)}
               className="image-item"
             />

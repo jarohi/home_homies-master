@@ -41,6 +41,7 @@ const ListingHead: React.FC<ListingHeadProps> = ({
   images_url !== null? images_url?.replace(/[{}]/g, ''): ""; // Remove curly braces
   let imageUrls = (images_url !== "" && images_url !== null)? images_url.split(","): [];
   imageUrls = imageUrls.map( image => image.replace(/{|}/g, ''))
+
   
   
   return ( 

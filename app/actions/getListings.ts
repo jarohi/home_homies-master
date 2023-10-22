@@ -1,7 +1,7 @@
 import prisma from "@/app/libs/prismadb";
 
 export interface IListingsParams {
-  userid?: string;
+  userId?: string;
   rent?: number[] | null;
   deposit?: number | null;
   brokerage?: string;
@@ -21,7 +21,7 @@ export default async function getListings(
 ) {
   try {
     const {
-      userid,
+      userId,
       rent, 
       brokerage,
       bhk,
@@ -32,8 +32,8 @@ export default async function getListings(
 
     let query: any = {};
 
-    if (userid) {
-      query.userid = userid;
+    if (userId) {
+      query.userId = userId;
     }
 
     if (rent) {
@@ -48,7 +48,7 @@ export default async function getListings(
       query.brokerage = brokerage
     }
 
-    console.log('bhk outside if', bhk)
+    // console.log('bhk outside if', bhk)
     if(bhk && bhk.length > 0) {
       console.log('checking if bhk is an array', Array.isArray(bhk));
       if(Array.isArray(bhk)){
@@ -69,9 +69,14 @@ export default async function getListings(
     }
 
     if(availableFor && availableFor.length > 0 ) {
+      if(Array.isArray(availableFor)){
       query.available_for = {
-        in: availableFor
+        in: availableFor,
       }
+    }
+    else {
+      query.available_for = availableFor;
+    }
     }
 
     if(city) {

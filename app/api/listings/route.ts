@@ -16,7 +16,7 @@ export async function POST(
   const { 
     city,
     user,
-    userid,
+    userId,
     id,
     rent,
     deposit,
@@ -45,7 +45,7 @@ export async function POST(
     data: {
       city,
       user,
-      userid,      
+      userId,      
       id,
       rent,
       deposit,

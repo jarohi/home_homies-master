@@ -16,7 +16,7 @@ CREATE TABLE "User" (
 -- CreateTable
 CREATE TABLE "Account" (
     "id" TEXT NOT NULL,
-    "userid" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
     "type" TEXT,
     "provider" TEXT,
     "providerAccountId" TEXT,
@@ -34,7 +34,8 @@ CREATE TABLE "Account" (
 -- CreateTable
 CREATE TABLE "listing" (
     "id" TEXT NOT NULL,
-    "userid" TEXT NOT NULL,
+    "city" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
     "rent" INTEGER,
     "deposit" INTEGER,
     "brokerage" TEXT,
@@ -50,7 +51,6 @@ CREATE TABLE "listing" (
     "listing_url" TEXT,
     "images_url" TEXT,
     "original_listing" TEXT,
-    "city" TEXT NOT NULL,
 
     CONSTRAINT "listing_pkey" PRIMARY KEY ("id")
 );
@@ -58,7 +58,7 @@ CREATE TABLE "listing" (
 -- CreateTable
 CREATE TABLE "Reservation" (
     "id" TEXT NOT NULL,
-    "userid" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
     "listingId" TEXT,
     "startDate" TIMESTAMP(3),
     "endDate" TIMESTAMP(3),
@@ -75,13 +75,13 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 CREATE UNIQUE INDEX "Account_provider_providerAccountId_key" ON "Account"("provider", "providerAccountId");
 
 -- AddForeignKey
-ALTER TABLE "Account" ADD CONSTRAINT "Account_userid_fkey" FOREIGN KEY ("userid") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "listing" ADD CONSTRAINT "listing_userid_fkey" FOREIGN KEY ("userid") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "listing" ADD CONSTRAINT "listing_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Reservation" ADD CONSTRAINT "Reservation_userid_fkey" FOREIGN KEY ("userid") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Reservation" ADD CONSTRAINT "Reservation_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Reservation" ADD CONSTRAINT "Reservation_listingId_fkey" FOREIGN KEY ("listingId") REFERENCES "listing"("id") ON DELETE CASCADE ON UPDATE CASCADE;

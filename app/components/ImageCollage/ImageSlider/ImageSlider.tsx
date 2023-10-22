@@ -40,6 +40,8 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
         </button>
         <Image
           src={images[currentImageIndex]}
+          width={500}
+          height={500}
           alt={`Image ${currentImageIndex + 1}`}
         />
         <button className="slider-nav next" onClick={nextImage}>
