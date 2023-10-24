@@ -12,7 +12,6 @@ import Container from "@/app/components/Container";
 import { categories } from "@/app/components/navbar/Categories";
 import ListingHead from "@/app/components/listings/ListingHead";
 import ListingInfo from "@/app/components/listings/ListingInfo";
-import AISummary from "@/app/components/listings/AISummary/AISummary";
 import { listing } from "@prisma/client";
 
 const initialDateRange = {
@@ -61,8 +60,6 @@ const ListingClient: React.FC<ListingClientProps> = ({
   const [totalPrice, setTotalPrice] = useState(listing.rent);
   const [dateRange, setDateRange] = useState<Range>(initialDateRange);
 
- 
-
   useEffect(() => {
     if (dateRange.startDate && dateRange.endDate) {
       const dayCount = differenceInDays(
@@ -89,19 +86,21 @@ const ListingClient: React.FC<ListingClientProps> = ({
         <div className="flex flex-col gap-6">
           <ListingHead
             bhk={listing.bhk}
+            deposit={listing.deposit}
+            brokerage={listing.brokerage}
+            availability={listing.availability}
+            available_for={listing.available_for}
+            property_type={listing.property_type}
+            contact_details={listing.contact_details}
             images_url={listing.images_url}
             rent={listing.rent}
-            // locationValue={listing.locationValue}
             id={listing.id}
             currentUser={currentUser}
             location_type={listing.location_area}
+            originalPostUrl={listing.original_listing}
           />
           <div 
             className="
-              grid 
-              grid-cols-1 
-              md:grid-cols-7 
-              md:gap-10 
               mt-6
             "
           >
@@ -113,7 +112,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
               brokerage={listing.brokerage}
               originalPostUrl={listing.listing_url}
             />
-            <div 
+            {/* <div 
               className="
                 order-first 
                 mb-10 
@@ -129,15 +128,14 @@ const ListingClient: React.FC<ListingClientProps> = ({
                 preferredTenants={listing.available_for}
                 possession={listing.availability}
                 propertyType={listing.property_type}
-                contactDetails={listing.contact_details   
-                }
+                contactDetails={listing.contact_details}
               />
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
     </Container>
    );
 }
- 
+
 export default ListingClient;
