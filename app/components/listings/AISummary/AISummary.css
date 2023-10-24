@@ -1,0 +1,56 @@
+.property-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: auto;
+    text-align: center;
+  }
+  
+  .property-table th, .property-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .property-table th {
+    background-color: #f2f2f2;
+  }
+
+  .icon {
+    margin-right: 0.5rem; /* Adjust the spacing between icon and text */
+    font-size: 24px; 
+  }
+
+  .table-cell {
+    border: 1px solid #ccc;
+    padding: 16px;
+    border-radius: 4px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .left-content {
+    display: flex;
+    align-items: center;
+  }
+  
+  .icon-container {
+    margin-right: 10px;
+    margin-top: 4px;
+  }
+  
+  
+  .info {
+    display: flex;
+    flex-direction: column;
+  
+  }
+  
+  .title {
+    font-weight: bold;
+    margin-top: 0;
+  }
+
+  .value {
+    margin-top: 0;
+  }
+  

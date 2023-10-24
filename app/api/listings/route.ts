@@ -14,15 +14,25 @@ export async function POST(
 
   const body = await request.json();
   const { 
-    title,
-    description,
-    imageSrc,
-    category,
-    roomCount,
-    bathroomCount,
-    guestCount,
-    location,
-    price,
+    city,
+    user,
+    userId,
+    id,
+    rent,
+    deposit,
+    brokerage,
+    createdAt,
+    availability,
+    bhk,
+    occupancy,
+    available_for,
+    furnishing_status,
+    property_type,
+    location_area,
+    contact_details,
+    listing_url,
+    images_url,
+    original_listing
    } = body;
 
   Object.keys(body).forEach((value: any) => {
@@ -33,16 +43,25 @@ export async function POST(
 
   const listing = await prisma.listing.create({
     data: {
-      title,
-      description,
-      imageSrc,
-      category,
-      roomCount,
-      bathroomCount,
-      guestCount,
-      locationValue: location.value,
-      price: parseInt(price, 10),
-      userId: currentUser.id
+      city,
+      user,
+      userId,      
+      id,
+      rent,
+      deposit,
+      brokerage,
+      createdAt,
+      availability,
+      bhk,
+      occupancy,
+      available_for,
+      furnishing_status,
+      property_type,
+      location_area,
+      contact_details,
+      listing_url,
+      images_url,
+      original_listing
     }
   });
 

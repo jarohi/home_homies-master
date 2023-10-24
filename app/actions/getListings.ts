@@ -2,9 +2,18 @@ import prisma from "@/app/libs/prismadb";
 
 export interface IListingsParams {
   userId?: string;
-  rent?: number;
-  brokerge?: String;
-  // locationValue?: string;
+  rent?: number[] | null;
+  deposit?: number | null;
+  brokerage?: string;
+  createdAt?: Date | null;
+  availability?: Date | null;
+  bhk?: string[] | null;
+  occupancy?: string[] | null;
+  availableFor?: string[] | null;
+  furnishing_status?: string;
+  property_type?: string;
+  location_area?: string;
+  city?: string;
 }
 
 export default async function getListings(
@@ -14,7 +23,11 @@ export default async function getListings(
     const {
       userId,
       rent, 
-      brokerge, 
+      brokerage,
+      bhk,
+      occupancy,
+      availableFor,
+      city
     } = params;
 
     let query: any = {};
@@ -25,21 +38,56 @@ export default async function getListings(
 
     if (rent) {
       query.rent = {
-        lte: +rent
+        lte: +rent[1],
+        gte: +rent[0]
       };
+      console.log('query rent', query.rent);
+    } 
+
+    if (brokerage) {
+      query.brokerage = brokerage
     }
 
-    if (brokerge) {
-      query.brokerge = {
-        lte: +brokerge
+    // console.log('bhk outside if', bhk)
+    if(bhk && bhk.length > 0) {
+      console.log('checking if bhk is an array', Array.isArray(bhk));
+      if(Array.isArray(bhk)){
+      const numericBHK = bhk.map((value) => parseInt(value, 10));
+      query.bhk = {
+        in: numericBHK // Filter by the numeric values of 'bhk'
+      };
+    } else {
+      query.bhk = parseInt(bhk, 10);
+    }
+      console.log('query bhk', query.bhk);
+    }
+
+    if(occupancy && occupancy.length > 0) {
+      query.occupancy = {
+        in: occupancy 
       }
     }
 
-    const listings = await prisma.post.findMany({
+    if(availableFor && availableFor.length > 0 ) {
+      if(Array.isArray(availableFor)){
+      query.available_for = {
+        in: availableFor,
+      }
+    }
+    else {
+      query.available_for = availableFor;
+    }
+    }
+
+    if(city) {
+      query.city = city;
+    }
+    
+    const listings = await prisma.listing.findMany({
       where: query,
-      // orderBy: {
-      //   createdAt: 'desc'
-      // }
+      orderBy: {
+        createdAt: 'desc'
+      }
     });
 
     const safeListings = listings.map((listing) => ({

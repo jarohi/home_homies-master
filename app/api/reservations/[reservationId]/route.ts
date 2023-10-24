@@ -26,10 +26,10 @@ export async function DELETE(
   const reservation = await prisma.reservation.deleteMany({
     where: {
       id: reservationId,
-      OR: [
-        { userId: currentUser.id },
-        { listing: { userId: currentUser.id } }
-      ]
+      // OR: [
+      //   { userId: currentUser.id },
+      //   { listing: { userId: currentUser.id } }
+      // ]
     }
   });
 

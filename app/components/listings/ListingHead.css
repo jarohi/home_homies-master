@@ -1,0 +1,9 @@
+.image-collage-container {
+    width: calc(33.33% - 20px); /* Adjust as needed; minus margin and padding */
+    margin: 10px; /* Add margin as needed */
+    padding: 10px; /* Add padding as needed */
+  }
+
+ .original-post-url {
+    margin-top: 20px;
+}

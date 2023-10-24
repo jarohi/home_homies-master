@@ -1,13 +1,16 @@
 'use client';
 
 import dynamic from "next/dynamic";
-import { IconType } from "react-icons";
 
 import useCountries from "@/app/hooks/useCountries";
 import { SafeUser } from "@/app/types";
 
 import Avatar from "../Avatar";
 import ListingCategory from "./ListingCategory";
+import VisitOriginalPostButton from "./OriginalPost/OriginalPost";
+import "./ListingInfo.css"
+import Heading from "../Heading";
+
 
 const Map = dynamic(() => import('../Map'), { 
   ssr: false 
@@ -15,82 +18,35 @@ const Map = dynamic(() => import('../Map'), {
 
 interface ListingInfoProps {
   user: SafeUser,
-  description: string;
-  rent: number;
-  deposit: number;
-  brokerage: String;
-  category: {
-    icon: IconType,
-    label: string;
-    description: string;
-  } | undefined
+  rent: number|null,
+  deposit: number|null,
+  brokerage: String|null,
+  original_listing: string|null,
+  originalPostUrl: string|null
+
   // locationValue: string;
 }
 
 const ListingInfo: React.FC<ListingInfoProps> = ({
   user,
-  description,
   rent,
   deposit,
   brokerage,
-  category,
-  // locationValue,
+  original_listing,
+  originalPostUrl
 }) => {
   const { getByValue } = useCountries();
 
-  // const coordinates = getByValue(locationValue)?.latlng
-
   return ( 
-    <div className="col-span-4 flex flex-col gap-8">
-      <div className="flex flex-col gap-2">
-        <div 
-          className="
-            text-xl 
-            font-semibold 
-            flex 
-            flex-row 
-            items-center
-            gap-2
-          "
-        >
-          <div>Hosted by {user?.name}</div>
-          <Avatar src={user?.image} />
-        </div>
-        <div className="
-            flex 
-            flex-row 
-            items-center 
-            gap-4 
-            font-light
-            text-neutral-500
-          "
-        >
-          <div>
-           Rent: {rent} 
-          </div>
-          <div>
-           Deposit: {deposit}
-          </div>
-          <div>
-           Brokerage {brokerage}
-          </div>
-        </div>
-      </div>
-      <hr />
-      {category && (
-        <ListingCategory
-          icon={category.icon} 
-          label={category?.label}
-          description={category?.description} 
-        />
-      )}
-      <hr />
-      <div className="
-      text-lg font-light text-neutral-500">
-        {description}
-      </div>
-      <hr />
-      {/* <Map center={coordinates} /> */}
+    <div>
+      <Heading
+      title = "Description"
+      />
+      <div className="card">
+      <div className="card-content">
+       {original_listing}
+       </div>
+       </div>
     </div>
    );
 }
