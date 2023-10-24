@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useCallback, useMemo } from "react";
+import React,{ useCallback, useMemo, useState } from "react";
 import { format } from 'date-fns';
 
 import useCountries from "@/app/hooks/useCountries";
@@ -89,8 +89,16 @@ const ListingCard: React.FC<ListingCardProps> = ({
   const sanitizedImages  = data.images_url?.replace(/[{}]/g, ''); // Remove curly braces
   const imageUrls = sanitizedImages?.split(",");
   const displayImage = Array.isArray(imageUrls) && imageUrls.length > 0 ? imageUrls[0] : "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmVhdXRpZnVsJTIwaG91c2V8ZW58MHx8MHx8fDA%3D&w=1000&q=80";
+  
+  const [imageError, setImageError] = useState(false);
+
+  const handleImageError = () => {
+    setImageError(true);
+  };
 
   return (
+    <div  style={{ display: imageError ? 'none' : 'block' }}>
+    {imageError ? null : (
     <div 
       onClick={() => router.push(`/listings/${data.id}`)} 
       className="col-span-1 cursor-pointer group"
@@ -116,6 +124,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
             "
             src={displayImage}
             alt="Listing"
+            onError={handleImageError}
           />
           <div className="
             absolute
@@ -152,6 +161,8 @@ const ListingCard: React.FC<ListingCardProps> = ({
           />
         )}
       </div>
+    </div>
+    )}
     </div>
    );
 }

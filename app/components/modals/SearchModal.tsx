@@ -37,7 +37,7 @@ const SearchModal = () => {
 
   const handleResetFilters = () => {
     // Reset all filter-related state variables
-    setRent([0, 10000]);
+    setRent([0, 200000]);
     setbrokerage(null);
     setbhk([]);
     setOccupancy([]);
