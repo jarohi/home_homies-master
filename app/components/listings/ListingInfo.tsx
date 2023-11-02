@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 
-import useCountries from "@/app/hooks/useCountries";
+// import useCountries from "@/app/hooks/useCountries";
 import { SafeUser } from "@/app/types";
 
 import Avatar from "../Avatar";
@@ -33,7 +33,7 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
   originalPostUrl
   // locationValue,
 }) => {
-  const { getByValue } = useCountries();
+  // const { getByValue } = useCountries();
 
   // const coordinates = getByValue(locationValue)?.latlng
 

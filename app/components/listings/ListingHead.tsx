@@ -1,6 +1,6 @@
 'use client';
 
-import useCountries from "@/app/hooks/useCountries";
+// import useCountries from "@/app/hooks/useCountries";
 import { SafeUser } from "@/app/types";
 
 import Heading from "../Heading";
@@ -31,7 +31,7 @@ const ListingHead: React.FC<ListingHeadProps> = ({
   currentUser,
   location_type
 }) => {
-  const { getByValue } = useCountries();
+  // const { getByValue } = useCountries();
 
   const location_type_val = location_type? `in ${location_type}` : ""
   console.log('inside listing head');

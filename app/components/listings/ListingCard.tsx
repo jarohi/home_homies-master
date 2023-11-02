@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import React,{ useCallback, useMemo, useState } from "react";
 import { format } from 'date-fns';
 
-import useCountries from "@/app/hooks/useCountries";
+// import useCountries from "@/app/hooks/useCountries";
 import { 
   SafeListing, 
   SafeReservation, 
@@ -36,7 +36,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
   currentUser,
 }) => {
   const router = useRouter();
-  const { getByValue } = useCountries();
+  // const { getByValue } = useCountries();
 
   // const location = getByValue(data.locationValue);
 

@@ -2,21 +2,20 @@
 
 
 import React, { ReactNode } from 'react';
-import { FaAngleDown } from 'react-icons/fa';
 
 import { useSearchParams } from 'next/navigation';
 import { useMemo } from 'react';
 import { BiSearch } from 'react-icons/bi';
 
 import useSearchModal from '@/app/hooks/useSearchModal';
-import useCountries from '@/app/hooks/useCountries';
+// import useCountries from '@/app/hooks/useCountries';
 import MyDropdown from './MyDropdown';
 
 
 const Search = () => {
   const searchModal = useSearchModal();
   const params = useSearchParams();
-  const { getByValue } = useCountries();
+  // const { getByValue } = useCountries();
 
   const  locationValue = params?.get('locationValue'); 
   const  startDate = params?.get('startDate');
@@ -34,13 +33,13 @@ const Search = () => {
 
 
 
-   const locationLabel = useMemo(() => {
-    if (locationValue) {
-      return getByValue(locationValue as string)?.label;
-   }
+  //  const locationLabel = useMemo(() => {
+  //   if (locationValue) {
+  //     return getByValue(locationValue as string)?.label;
+  //  }
 
-    return 'City';
-   }, [locationValue, getByValue]);
+  //   return 'City';
+  //  }, [locationValue, getByValue]);
   
    
 
