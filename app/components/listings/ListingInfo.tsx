@@ -79,7 +79,9 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
         </div>
       </div> */}
       <hr />
-       {original_listing}
+      <div style={{ whiteSpace: 'pre-line' }}>
+      {original_listing}
+    </div>
       <hr />
       {/* <Map center={coordinates} /> */}
     </div>
