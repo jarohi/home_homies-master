@@ -44,8 +44,7 @@ const Home = async ({ searchParams }: HomeProps) => {
             <ListingCard
               currentUser={currentUser}
               key={listing.id}
-              data={listing}
-            />
+              data={listing} bhk={listing.bhk}            />
           ))}
         </div>
       </Container>

@@ -23,7 +23,8 @@ interface ListingCardProps {
   disabled?: boolean;
   actionLabel?: string;
   actionId?: string;
-  currentUser?: SafeUser | null
+  currentUser?: SafeUser | null;
+  bhk: number | null;
 };
 
 const ListingCard: React.FC<ListingCardProps> = ({
@@ -34,6 +35,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
   actionLabel,
   actionId = '',
   currentUser,
+  bhk
 }) => {
   const router = useRouter();
   // const { getByValue } = useCountries();
@@ -139,7 +141,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
         </div>
         <div className="font-semibold text-lg">
           {/* {location?.region}, {location?.label} */}
-          {capitalizedLocation}
+          {`Occupancy in ${bhk?.toString()} bhk ${capitalizedLocation}`}
         </div>
         {/* <div className="font-light text-neutral-500">
           {reservationDate || data.property_type}
