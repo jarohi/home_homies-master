@@ -7,3 +7,14 @@
  .original-post-url {
     margin-top: 20px;
 }
+
+@media screen and (max-width: 767px) {
+  .grid-cols-1 {
+    grid-template-columns: 1fr; /* Adjust the grid layout for smaller screens */
+  }
+
+  .ReactPhotoCollage {
+    width: 100%; /* Make the collage fill the entire width of the container */
+    height: auto; /* Allow the height to adjust proportionally */
+  }
+}

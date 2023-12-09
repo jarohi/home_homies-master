@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import './ImageCollage.css'; // Import your styling
 import ImageSlider from './ImageSlider/ImageSlider';
 
@@ -17,26 +19,16 @@ const ImageCollage: React.FC<ImageCollageProps> = ({ images }) => {
     setActiveImageIndex(null);
   };
 
-  const visibleImages = 3; // Number of images visible in the collage
-  const hiddenImagesCount = images.length - visibleImages;
-
   return (
     <div className="image-collage">
-      <div className="image-grid">
-        {images.slice(0, visibleImages).map((image, index) => (
-          <div key={index} className="image-item-container">
-            <img
-              src={image}
-              alt={`Image ${index + 1}`}
-              onClick={() => handleImageClick(index)}
-              className="image-item"
-            />
-            {index === visibleImages - 1 && hiddenImagesCount > 0 && (
-              <div className="hidden-images-count">+{hiddenImagesCount}</div>
-            )}
+      <Carousel showStatus={false} showThumbs={false}>
+        {images.map((image, index) => (
+          <div key={index} onClick={() => handleImageClick(index)}>
+            <img src={image} alt={`Image ${index + 1}`} className="image-item" 
+            style={{ width: '100%', height: '100%' }}/>
           </div>
         ))}
-      </div>
+      </Carousel>
       {activeImageIndex !== null && (
         <ImageSlider
           images={images}

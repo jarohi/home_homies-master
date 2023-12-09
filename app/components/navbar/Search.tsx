@@ -44,24 +44,6 @@ const Search = () => {
   
    
 
-
-
-  // const durationLabel = useMemo(() => {
-  //   if (startDate && endDate) {
-  //     const start = new Date(startDate as string);
-  //     const end = new Date(endDate as string);
-  //     let diff = differenceInDays(end, start);
-
-  //     if (diff === 0) {
-  //       diff = 1;
-  //     }
-
-  //     return `${diff} Days`;
-  //   }
-
-    //return 'Any Week'
-//  }, [startDate, endDate]);
-
   const guestLabel = useMemo(() => {
     if (guestCount) {
       return `${guestCount} Guests`;
@@ -123,7 +105,7 @@ const Search = () => {
           
           <div 
           onClick={searchModal.onOpen}
-          className="hidden sm:block"> {guestLabel}</div>
+          className="sm:block"> {guestLabel}</div>
           <div 
             className="
               p-2 

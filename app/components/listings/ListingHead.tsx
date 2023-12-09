@@ -9,6 +9,7 @@ import ImageCollage from "../ImageCollage/ImageCollage";
 import AISummary from "./AISummary/AISummary";
 import VisitOriginalPostButton from "./OriginalPost/OriginalPost";
 import "./ListingHead.css"
+import { ReactPhotoCollage } from "react-photo-collage";
 
 function capitalizeWords(str: string) {
   return str
@@ -61,8 +62,17 @@ const ListingHead: React.FC<ListingHeadProps> = ({
   let imageUrls = (images_url !== "" && images_url !== null)? images_url.split(","): [];
   console.log('images_url after split', imageUrls);
   imageUrls = imageUrls.map( image => image.replace(/{|}/g, ''));
+  let photos = imageUrls.map(image => {return {source: image}})
   console.log('images_url  after replace', imageUrls );
   
+
+  const setting = {
+    width: '600px',
+    height: ['250px', '170px'],
+    layout: [1, 3],
+    photos: photos,
+    showNumOfRemainingPhotos: true
+  };
   
   return ( 
     <>
@@ -71,19 +81,26 @@ const ListingHead: React.FC<ListingHeadProps> = ({
       />
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
       <div className="
+          order-first
           md:col-span-3
           w-full
-          h-[40vh]
           overflow-hidden 
-          rounded-xl
           relative
         "
       >
-        <ImageCollage images={imageUrls} />
+         {window.innerWidth <= 600 ? (
+            // Display slider for screens less than or equal to 600px
+            <ImageCollage images={imageUrls} />
+          ) : (
+            // Display collage for screens greater than 600px
+            <ReactPhotoCollage {...setting} />
+          )}
+          {/* <ImageCollage images={imageUrls} /> */}
+          {/* <ReactPhotoCollage {...setting} /> */}
         </div>
         <div 
               className="
-                order-first 
+                 
                 mb-10 
                 md:order-last 
                 md:col-span-2
